@@ -36,6 +36,182 @@ public abstract class Character extends JLabel implements Move {
 		
 		
 
+		public boolean isLeft() {
+			return left;
+		}
+
+		public void setLeft(boolean left) {
+			this.left = left;
+		}
+
+		public boolean isRight() {
+			return right;
+		}
+
+		public void setRight(boolean right) {
+			this.right = right;
+		}
+
+		public boolean isUp() {
+			return up;
+		}
+
+		public void setUp(boolean up) {
+			this.up = up;
+		}
+
+		public boolean isDown() {
+			return down;
+		}
+
+		public void setDown(boolean down) {
+			this.down = down;
+		}
+
+		public boolean isJump() {
+			return jump;
+		}
+
+		public void setJump(boolean jump) {
+			this.jump = jump;
+		}
+
+		public boolean isAttack() {
+			return attack;
+		}
+
+		public void setAttack(boolean attack) {
+			this.attack = attack;
+		}
+
+		public int getX() {
+			return x;
+		}
+
+		public void setX(int x) {
+			this.x = x;
+		}
+
+		public int getY() {
+			return y;
+		}
+
+		public void setY(int y) {
+			this.y = y;
+		}
+
+		public ImageIcon[] getPlayerL() {
+			return playerL;
+		}
+
+		public void setPlayerL(ImageIcon[] playerL) {
+			this.playerL = playerL;
+		}
+
+		public ImageIcon[] getPlayerR() {
+			return playerR;
+		}
+
+		public void setPlayerR(ImageIcon[] playerR) {
+			this.playerR = playerR;
+		}
+
+		public ImageIcon[] getPlayerLadder() {
+			return playerLadder;
+		}
+
+		public void setPlayerLadder(ImageIcon[] playerLadder) {
+			this.playerLadder = playerLadder;
+		}
+
+		public ImageIcon[] getPlayerSwingL() {
+			return playerSwingL;
+		}
+
+		public void setPlayerSwingL(ImageIcon[] playerSwingL) {
+			this.playerSwingL = playerSwingL;
+		}
+
+		public ImageIcon[] getPlayerSwingR() {
+			return playerSwingR;
+		}
+
+		public void setPlayerSwingR(ImageIcon[] playerSwingR) {
+			this.playerSwingR = playerSwingR;
+		}
+
+		public int getMaxHp() {
+			return maxHp;
+		}
+
+		public void setMaxHp(int maxHp) {
+			this.maxHp = maxHp;
+		}
+
+		public int getHp() {
+			return hp;
+		}
+
+		public void setHp(int hp) {
+			this.hp = hp;
+		}
+
+		public int getMaxMp() {
+			return maxMp;
+		}
+
+		public void setMaxMp(int maxMp) {
+			this.maxMp = maxMp;
+		}
+
+		public int getMp() {
+			return mp;
+		}
+
+		public void setMp(int mp) {
+			this.mp = mp;
+		}
+
+		public int getStr() {
+			return str;
+		}
+
+		public void setStr(int str) {
+			this.str = str;
+		}
+
+		public int getWis() {
+			return wis;
+		}
+
+		public void setWis(int wis) {
+			this.wis = wis;
+		}
+
+		public int getLv() {
+			return lv;
+		}
+
+		public void setLv(int lv) {
+			this.lv = lv;
+		}
+
+		public int getArrN() {
+			return arrN;
+		}
+
+		public void setArrN(int arrN) {
+			this.arrN = arrN;
+		}
+
+		public int getSPEED() {
+			return SPEED;
+		}
+
+		public int getJUMP_SPEED() {
+			return JUMP_SPEED;
+		}
+
 		@Override
 		public void left() {
 			left = true;
