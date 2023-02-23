@@ -18,24 +18,28 @@ public class Magician extends Character {
 	
 	
 	private void initData() {
-		playerL[0] = new ImageIcon("images/magician_walk1L.png");
-		playerL[1] = new ImageIcon("images/magician_walk2L.png");
-		playerL[2] = new ImageIcon("images/magician_walk3L.png");
-		playerR[0] = new ImageIcon("images/magician_walk1R.png");
-		playerR[1] = new ImageIcon("images/magician_walk2R.png");
-		playerR[2] = new ImageIcon("images/magician_walk3R.png");
-		playerSwingL[0] = new ImageIcon("images/magician_swing0L.png");
-		playerSwingL[1] = new ImageIcon("images/magician_swing1L.png");
-		playerSwingL[2] = new ImageIcon("images/magician_swing2.png");
-		playerSwingR[0] = new ImageIcon("images/magician_swing0R.png");
-		playerSwingR[1] = new ImageIcon("images/magician_swing1R.png");
-		playerSwingR[2] = new ImageIcon("images/magician_swing2R.png");
-		playerLadder[0] = new ImageIcon("images/magician_ladder0.png");
-		playerLadder[1] = new ImageIcon("images/magician_ladder1.png");
+		playerL[0] = new ImageIcon("images/characters/magician_walk1L.png");
+		playerL[1] = new ImageIcon("images/characters/magician_walk2L.png");
+		playerL[2] = new ImageIcon("images/characters/magician_walk3L.png");
+		playerR[0] = new ImageIcon("images/characters/magician_walk1R.png");
+		playerR[1] = new ImageIcon("images/characters/magician_walk2R.png");
+		playerR[2] = new ImageIcon("images/characters/magician_walk3R.png");
+		playerSwingL[0] = new ImageIcon("images/characters/magician_swing0L.png");
+		playerSwingL[1] = new ImageIcon("images/characters/magician_swing1L.png");
+		playerSwingL[2] = new ImageIcon("images/characters/magician_swing2.png");
+		playerSwingR[0] = new ImageIcon("images/characters/magician_swing0R.png");
+		playerSwingR[1] = new ImageIcon("images/characters/magician_swing1R.png");
+		playerSwingR[2] = new ImageIcon("images/characters/magician_swing2R.png");
+		playerLadder[0] = new ImageIcon("images/characters/magician_ladder0.png");
+		playerLadder[1] = new ImageIcon("images/characters/magician_ladder1.png");
 	}
 	
 	private void setInitLayout() {
-
+		setSize(200, 200);
+		x = 50;
+		y = 500;
+		setLocation(x, y);
+		setIcon(playerL[0]);
 	}
 	
 	@Override
@@ -49,12 +53,5 @@ public class Magician extends Character {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void fall() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 }

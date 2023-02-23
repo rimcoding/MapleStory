@@ -9,9 +9,10 @@ public abstract class Character extends JLabel implements Move {
 		protected boolean left;  
 		protected boolean right;
 		protected boolean up; // 사다리 올라가기
-		protected boolean down;
+		protected boolean down; // 사다리 내려가기
 		protected boolean jump;
 		protected boolean attack; // 공격 모션중 (공격이나 스킬사용중 움직이지 못하게)
+		protected boolean fall; // 떨어지는거
 		// 좌표
 		protected int x, y;
 		// 캐릭터 이미지
@@ -33,6 +34,14 @@ public abstract class Character extends JLabel implements Move {
 		protected int lv;
 		// 배열 숫자용
 		protected int arrN;
+		// 아이템
+		protected int hpPotion;
+		protected int mpPotion;
+		
+		public Character() {
+			hpPotion = 10;
+			mpPotion = 10;
+		}
 		
 		
 
@@ -216,6 +225,7 @@ public abstract class Character extends JLabel implements Move {
 		public void left() {
 			left = true;
 			right = false;
+			arrN = 1;
 			setIcon(playerL[1]);
 			// 한번 키보다 왼쪽 방향 키를 누르면 쓰레드 생성
 			new Thread(new Runnable() {
@@ -232,6 +242,10 @@ public abstract class Character extends JLabel implements Move {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						arrN += 1;
+						if(arrN > 2) {
+							arrN = 0;
+						}
 					} // end of while
 
 				}
@@ -242,6 +256,7 @@ public abstract class Character extends JLabel implements Move {
 		public void right() {
 			right = true;
 			left = false;
+			arrN = 1;
 			new Thread(new Runnable() {
 
 				@Override
@@ -255,6 +270,10 @@ public abstract class Character extends JLabel implements Move {
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+						}
+						arrN += 1;
+						if(arrN > 2) {
+							arrN = 0;
 						}
 					}
 
@@ -310,11 +329,80 @@ public abstract class Character extends JLabel implements Move {
 		
 		@Override
 		public void jump() {
-			
+			jump = true;
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					for (int i = 0; i < 130 / JUMP_SPEED; i++) {
+						y -= JUMP_SPEED;
+						setLocation(x, y);
+						try {
+							Thread.sleep(5);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+					jump = false;
+					down();
+
+				}
+			}).start();
 		}
 		
 		@Override
-		public void attack() {
+		public void attackLeft() {
+			attack = true;
+			for(int i = 0; i < playerSwingL.length; i++) {
+				setIcon(playerSwingL[i]);
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		@Override
+		public void attackRight() {
+			attack = false;
+			for(int i = 0; i < playerSwingR.length; i++) {
+				setIcon(playerSwingR[i]);
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		@Override
+		public void fall() {
+			fall = true;
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					
+					while(fall) {
+
+						y += JUMP_SPEED;
+						setLocation(x, y);
+						try {
+							Thread.sleep(3);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					fall = false;
+					
+				}
+			}).start();
 			
 		}
 		
@@ -323,13 +411,29 @@ public abstract class Character extends JLabel implements Move {
 		abstract void useSkill2();
 		
 		public void useHpPotion() {
-			
+			if(hp == maxHp) {
+				// 체력이 가득 차서 포션 못먹음
+			} else {
+				hp += 100;
+				if (hp > maxHp) {
+					hp = 100;
+					// 체력이 maxHp - hp 만큼 참
+				}
+			}
 			
 			
 		}
 		
 		public void useMpPotion() {
-			
+			if(mp == maxMp) {
+				// 체력이 가득 차서 포션 못먹음
+			} else {
+				mp += 100;
+				if (mp > maxMp) {
+					mp = 100;
+					// 체력이 maxHp - hp 만큼 참
+				}
+			}
 		}
 
 	
