@@ -4,7 +4,9 @@ import javax.swing.ImageIcon;
 
 public class Magician extends Character {
 
-	public Magician() {
+
+	public Magician(MapleFrame mContext) {
+		super(mContext);
 		lv = 10;
 		maxHp = 500;
 		maxMp = 300;
@@ -15,8 +17,7 @@ public class Magician extends Character {
 		initData();
 		setInitLayout();
 	}
-	
-	
+
 	private void initData() {
 		playerL[0] = new ImageIcon("images/characters/magician_walk1L.png");
 		playerL[1] = new ImageIcon("images/characters/magician_walk2L.png");
@@ -33,25 +34,25 @@ public class Magician extends Character {
 		playerLadder[0] = new ImageIcon("images/characters/magician_ladder0.png");
 		playerLadder[1] = new ImageIcon("images/characters/magician_ladder1.png");
 	}
-	
+
 	private void setInitLayout() {
 		setSize(200, 200);
 		x = 50;
 		y = 500;
 		setLocation(x, y);
-		setIcon(playerL[0]);
+		setIcon(playerR[0]);
 	}
-	
+
 	@Override
 	void useSkill1() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	void useSkill2() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }

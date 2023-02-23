@@ -2,11 +2,11 @@ package maple_story;
 
 import javax.swing.ImageIcon;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
 
-	
-	
-	public Warrior() {
+
+	public Warrior(MapleFrame mContext) {
+		super(mContext);
 		initData();
 		setInitLayout();
 		lv = 10;
@@ -17,8 +17,7 @@ public class Warrior extends Character{
 		str = 30;
 		wis = 5;
 	}
-	
-	
+
 	private void initData() {
 		playerL[0] = new ImageIcon("images/characters/warior_walk01.png");
 		playerL[1] = new ImageIcon("images/characters/warior_walk02.png");
@@ -34,28 +33,25 @@ public class Warrior extends Character{
 		playerSwingR[2] = new ImageIcon("images/characters/warior_swing2R.png");
 		playerLadder[0] = new ImageIcon("images/characters/warior_ladder0.png");
 		playerLadder[1] = new ImageIcon("images/characters/warior_ladder1.png");
-		
+
 	}
-	
+
 	private void setInitLayout() {
 		setSize(200, 200);
 		x = 50;
 		y = 500;
 		setLocation(x, y);
-		setIcon(playerL[0]);
+		setIcon(playerR[0]);
 	}
-	
+
 	@Override
 	void useSkill1() {
-		
-		
+
 	}
 
 	@Override
 	void useSkill2() {
-		
-		
-	}
 
+	}
 
 }
