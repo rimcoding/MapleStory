@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author GGG
+ *
+ */
+module maple {
+}
