@@ -8,12 +8,12 @@ public class Magician extends Character {
 	public Magician(MapleFrame mContext) {
 		super(mContext);
 		lv = 10;
-		maxHp = 500;
-		maxMp = 300;
+		maxHp = 300;
+		maxMp = 500;
 		hp = maxHp;
 		mp = maxMp;
-		str = 30;
-		wis = 5;
+		str = 5;
+		wis = 30;
 		initData();
 		setInitLayout();
 	}
@@ -36,9 +36,9 @@ public class Magician extends Character {
 	}
 
 	private void setInitLayout() {
-		setSize(200, 200);
-		x = 50;
-		y = 500;
+		setSize(70, 70);
+		x = 250;
+		y = 300;
 		setLocation(x, y);
 		setIcon(playerR[0]);
 	}

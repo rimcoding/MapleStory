@@ -1,5 +1,6 @@
 package maple_story;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -7,16 +8,50 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import javax.swing.JTextField;
 
-public class MapleFrame extends JFrame implements Moveable {
+public class MapleFrame extends JFrame {
 
 	private MapleFrame mContext = this;
 	private Character character;
 	private JLabel background;
-	private int playerX;
-	private int playerY;
-	private int bgX;
-	private int bgY;
+	private BackgroundPlayerService backgroundPlayerService;
+	private Map map;
+	private item hpPotion;
+	private item mpPotion;
+	private Keys keys;
+	private JLabel hpPotionCount;
+	private JLabel mpPotionCount;
+	private Snail snail;
+	private BlueSnail blueSnail;
+	private RedSnail redSnail;
+	private JProgressBar healthBar1 = new JProgressBar(0,100);
+	private JProgressBar healthBar2 = new JProgressBar(0,100);
+
+	public MapleFrame getmContext() {
+		return mContext;
+	}
+
+	public void setmContext(MapleFrame mContext) {
+		this.mContext = mContext;
+	}
+
+	public BackgroundPlayerService getBackgroundPlayerService() {
+		return backgroundPlayerService;
+	}
+
+	public void setBackgroundPlayerService(BackgroundPlayerService backgroundPlayerService) {
+		this.backgroundPlayerService = backgroundPlayerService;
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
 
 	public Character getCharacter() {
 		return character;
@@ -30,61 +65,69 @@ public class MapleFrame extends JFrame implements Moveable {
 		this.background = background;
 	}
 
-	public int getPlayerX() {
-		return playerX;
-	}
-
-	public void setPlayerX(int playerX) {
-		this.playerX = playerX;
-	}
-
-	public int getPlayerY() {
-		return playerY;
-	}
-
-	public void setPlayerY(int playerY) {
-		this.playerY = playerY;
-	}
-
-	public int getBgX() {
-		return bgX;
-	}
-
-	public void setBgX(int bgX) {
-		this.bgX = bgX;
-	}
-
-	public int getBgY() {
-		return bgY;
-	}
-
-	public void setBgY(int bgY) {
-		this.bgY = bgY;
-	}
-	
 	public MapleFrame() {
 		initData();
 		setInitLayout();
 		addEventListener();
+		new Thread(backgroundPlayerService).start();
 	}
 	
+	public void updateHealthBar(int health) {
+		healthBar1.setMaximum(500);
+		healthBar2.setMaximum(500);
+	}
+
 	private void initData() {
-		background = new JLabel(new ImageIcon("images/map/background1.png"));
-		setSize(1000, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		background.setSize(1530, 1350);
+		setSize(1400, 850);
+		map = new Map(mContext);
 		character = new Magician(this);
+		backgroundPlayerService = new BackgroundPlayerService(this);
+		healthBar1.setValue((int)(character.getHp()*100/character.getMaxHp()));
+		healthBar1.setForeground(Color.RED); // 체력바 색상 설정
+		healthBar1.setBounds(50,50,200,20); // 위치 및 크기 설정
+		healthBar2.setValue((int)(character.getHp()*100/character.getMaxHp())); 
+		healthBar2.setForeground(Color.BLUE); 
+		healthBar2.setBounds(50,100,200,20); 
+		hpPotion = new item(this);
+		hpPotion.setIcon(hpPotion.getHpPotion());
+		mpPotion = new item(this);
+		mpPotion.setIcon(mpPotion.getMpPotion());
+		keys = new Keys(this);
+		hpPotionCount = new JLabel();
+		mpPotionCount = new JLabel();
+		snail = new Snail(mContext, maple_story.MonsterWay.LEFT);
+		blueSnail = new BlueSnail(mContext, maple_story.MonsterWay.LEFT);
+		redSnail = new RedSnail(mContext, maple_story.MonsterWay.LEFT);
+
 	}
 
 	private void setInitLayout() {
 		setLayout(null);
 		setLocationRelativeTo(null);
-		setResizable(false);
+		setResizable(true);
+		hpPotionCount.setSize(50, 30);
+		hpPotionCount.setLocation(1305, 720);
+		mpPotionCount.setSize(50, 30);
+		mpPotionCount.setLocation(1305, 770);
+		mpPotionCount.setSize(50, 30);
+		hpPotion.setLocation(1300, 700);
+		mpPotion.setLocation(1300, 750);
+		keys.setLocation(100, 670);
+		hpPotionCount.setText("" + character.getHpPotion());
+		mpPotionCount.setText("" + character.getMpPotion());
+		add(hpPotionCount);
+		add(mpPotionCount);
 		add(character);
-		add(background);
-		bgX = 0;
-		bgY = -500;
-		background.setLocation(bgX, bgY);
+		add(healthBar1); 
+		add(healthBar2);
+		add(snail);
+		add(blueSnail);
+		add(redSnail);
+		add(hpPotion);
+		add(mpPotion);
+		add(keys);
+		add(map);
 		setVisible(true);
 	}
 
@@ -98,122 +141,47 @@ public class MapleFrame extends JFrame implements Moveable {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					character.setRight(false);
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					character.setLeft(false);
 
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					character.setUp(false);
+
+				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+					character.setDown(false);
+				}
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					right();
+					if (!character.isRight()) {
+						character.right();
+					}
 				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					left();
+					if (!character.isLeft()) {
+						character.left();
+					}
 				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-					up();
+
 				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					down();
+
 				} else if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
 
 				} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					jump();
+					if (!character.isFall() && !character.isJump()) {
+						character.jump();
+					}
 				} else if (e.getKeyCode() == KeyEvent.VK_1) {
-					item1();
 				} else if (e.getKeyCode() == KeyEvent.VK_2) {
-					item2();
 				} else if (e.getKeyCode() == KeyEvent.VK_3) {
-					item3();
 				} else if (e.getKeyCode() == KeyEvent.VK_4) {
-					item4();
 				}
 
 			}
 		});
-	}
-
-	@Override
-	public void left() {
-		bgX += 10;
-		int x = character.getX() - 10;
-		int y = playerY;
-		if (x < 0) {
-			x = 0;
-			playerX = 0;
-		}
-		if (playerX < 100) {
-			bgX = 0;
-		}
-
-		character.setLocation(x, y);
-		background.setLocation(bgX, bgY);
-	}
-
-	@Override
-	public void right() {
-		bgX -= 10;
-		int x = playerX += 10;
-		int y = playerY;
-
-		if (playerX > 500) {
-			bgX = -500;
-		}
-
-		character.setLocation(x, y);
-		background.setLocation(bgX, bgY);
-	}
-
-	@Override
-	public void up() {
-		bgY += 10;
-		int x = playerX;
-		int y = playerY -= 10;
-		if (y < 0) {
-			y = 0;
-			playerY = 0;
-		}
-		if (playerY < 150) {
-			bgY = 0;
-		}
-
-		character.setLocation(x, y);
-		background.setLocation(bgX, bgY);
-	}
-
-	@Override
-	public void down() {
-		bgY -= 10;
-		int x = playerX;
-		int y = playerY += 10;
-		if (playerY > 100) {
-			bgY = -500;
-		}
-		background.setLocation(bgX, bgY);
-		character.setLocation(x, y);
-	}
-
-	@Override
-	public void jump() {
-
-		background.setLocation(bgX, bgY);
-		character.setLocation(playerX, playerY);
-	}
-
-	@Override
-	public void item1() {
-
-	}
-
-	@Override
-	public void item2() {
-
-	}
-
-	@Override
-	public void item3() {
-
-	}
-
-	@Override
-	public void item4() {
-
 	}
 
 	public static void main(String[] args) {

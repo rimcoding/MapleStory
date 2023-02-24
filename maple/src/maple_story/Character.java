@@ -3,10 +3,16 @@ package maple_story;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+
 public abstract class Character extends JLabel implements Move {
 
 	MapleFrame mContext;
 	// 상태
+	private PlayerWay pWay;
+	
 	protected boolean left;
 	protected boolean right;
 	protected boolean up; // 사다리 올라가기
@@ -16,6 +22,7 @@ public abstract class Character extends JLabel implements Move {
 	protected boolean fall; // 떨어지는거
 	protected boolean leftWallCrash;
 	protected boolean rightWallCrash;
+	protected boolean ladder; // 사다리에 있는 상태
 	// 좌표
 	protected int x, y;
 	// 캐릭터 이미지
@@ -42,11 +49,41 @@ public abstract class Character extends JLabel implements Move {
 	protected int mpPotion;
 	// 메이플 프레임
 
+	
+	
 	public Character(MapleFrame mContext) {
 		this.mContext = mContext;
 		hpPotion = 10;
 		mpPotion = 10;
 	}
+	
+	public PlayerWay getpWay() {
+		return pWay;
+	}
+
+	public void setpWay(PlayerWay pWay) {
+		this.pWay = pWay;
+	}
+
+	public MapleFrame getmContext() {
+		return mContext;
+	}
+
+
+	public void setmContext(MapleFrame mContext) {
+		this.mContext = mContext;
+	}
+
+
+	public boolean isLadder() {
+		return ladder;
+	}
+
+
+	public void setLadder(boolean ladder) {
+		this.ladder = ladder;
+	}
+
 
 	public boolean isLeft() {
 		return left;
@@ -266,6 +303,7 @@ public abstract class Character extends JLabel implements Move {
 
 	@Override
 	public void left() {
+		pWay = PlayerWay.LEFT;
 		left = true;
 		right = false;
 		arrN = 1;
@@ -284,8 +322,8 @@ public abstract class Character extends JLabel implements Move {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					if (x < 0) {
-						x = 0;
+					if (x < 16) {
+						x = 12;
 					} else {
 						x -= SPEED;
 					}
@@ -302,8 +340,8 @@ public abstract class Character extends JLabel implements Move {
 
 	@Override
 	public void right() {
+		pWay = PlayerWay.RIGHT;
 		right = true;
-		left = false;
 		arrN = 1;
 		new Thread(new Runnable() {
 
@@ -318,8 +356,8 @@ public abstract class Character extends JLabel implements Move {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					if (x > 900) {
-						x = 900;
+					if (x > 1266) {
+						x = 1270;
 					} else {
 						x += SPEED;
 					}
@@ -335,9 +373,8 @@ public abstract class Character extends JLabel implements Move {
 
 	@Override
 	public void up() {
-		up = true;
-		left = false;
-		right = false;
+		
+		ladder = true;
 		arrN = 0;
 		new Thread(new Runnable() {
 
@@ -366,9 +403,9 @@ public abstract class Character extends JLabel implements Move {
 
 	@Override
 	public void down() {
-		down = true;
 		left = false;
 		right = false;
+		ladder = true;
 		arrN = 0;
 		new Thread(new Runnable() {
 
@@ -389,6 +426,7 @@ public abstract class Character extends JLabel implements Move {
 					if (arrN > 1) {
 						arrN = 0;
 					}
+					
 				}
 				down = false;
 			}
@@ -402,8 +440,12 @@ public abstract class Character extends JLabel implements Move {
 
 			@Override
 			public void run() {
-				for (int i = 0; i < 130 / JUMP_SPEED; i++) {
-					y -= JUMP_SPEED;
+				for (int i = 0; i < 300 / JUMP_SPEED; i++) {
+					if (y < 2) {
+						y = 0; 
+					} else {
+						y -= JUMP_SPEED;
+					}
 					setLocation(x, y);
 					try {
 						Thread.sleep(5);
@@ -413,7 +455,7 @@ public abstract class Character extends JLabel implements Move {
 					}
 				}
 				jump = false;
-				down();
+				fall();
 			}
 		}).start();
 	}
@@ -427,17 +469,17 @@ public abstract class Character extends JLabel implements Move {
 			public void run() {
 
 				while (fall) {
-					y += JUMP_SPEED;
+					y += SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(3);
+						Thread.sleep(10);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
 				}
+				
 				fall = false;
-
 			}
 		}).start();
 	}
@@ -451,7 +493,6 @@ public abstract class Character extends JLabel implements Move {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -465,7 +506,6 @@ public abstract class Character extends JLabel implements Move {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

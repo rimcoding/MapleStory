@@ -178,4 +178,10 @@ public class Monster extends JLabel implements MonsterMove {
 
 		}
 	}
+
+	@Override
+	public void die() {
+		// TODO Auto-generated method stub
+		
+	}
 }
