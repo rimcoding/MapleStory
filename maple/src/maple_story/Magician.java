@@ -3,7 +3,17 @@ package maple_story;
 import javax.swing.ImageIcon;
 
 public class Magician extends Character {
+	
+	private MagicianSkill magicianSkill;
+	
 
+	public MagicianSkill getMagicianSkill() {
+		return magicianSkill;
+	}
+
+	public void setMagicianSkill(MagicianSkill magicianSkill) {
+		this.magicianSkill = magicianSkill;
+	}
 
 	public Magician(MapleFrame mContext) {
 		super(mContext);
@@ -45,7 +55,9 @@ public class Magician extends Character {
 
 	@Override
 	void useSkill1() {
-		// TODO Auto-generated method stub
+		
+		magicianSkill = new MagicianSkill(mContext);
+		mContext.add(magicianSkill);
 
 	}
 

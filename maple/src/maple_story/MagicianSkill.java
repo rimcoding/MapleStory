@@ -4,10 +4,11 @@ import javax.swing.ImageIcon;
 
 
 
-public class MagicianSkill extends Skill implements MonsterMove {
+public class MagicianSkill extends Skill {
 
 	private ImageIcon energyBall;
 	private final int SKILL_SPEED = 5;
+
 
 	public MagicianSkill(MapleFrame mContext) {
 		super(mContext);
@@ -16,13 +17,13 @@ public class MagicianSkill extends Skill implements MonsterMove {
 	@Override
 	void initData() {
 		energyBall = new ImageIcon("images/skills/Magician0.png");
-		state = 0;
+		damage = 12345;
 	}
 
 	@Override
 	void setInitLayout() {
 		x = mContext.getCharacter().getX();
-		y = mContext.getCharacter().getY();
+		y = mContext.getCharacter().getY() - 30;
 		setIcon(energyBall);
 		setSize(164, 164);
 		setLocation(x, y);
@@ -47,14 +48,38 @@ public class MagicianSkill extends Skill implements MonsterMove {
 
 	}
 
-	@Override
 	public void left() {
 		left = true;
-		for (int i = 0; i < 100; i++) {
+	System.out.println(x+" "+y);
+		 
+		for  (int i = 0; i < 100; i++) {
 			x -= SKILL_SPEED;
 			setLocation(x, y);
-			System.out.println("" + x + "" + y);
-
+			if (520 <= y && y <= 530) {
+				if (Math.abs(mContext.getRedSnail().getX()-x) < 10 ) {
+					setIcon(null);
+					mContext.getRedSnail().damaged(damage);
+					if(mContext.getRedSnail().getState() == 1) {
+						remove(mContext.getRedSnail());
+					}
+				}
+			}else if(250 <= y && y <= 260) {
+				if (Math.abs(mContext.getBlueSnail().getX()-x) < 10 ) {
+					setIcon(null);
+					mContext.getBlueSnail().damaged(damage);
+					if(mContext.getBlueSnail().getState() == 1) {
+						remove(mContext.getBlueSnail());
+					}
+				}
+			}else if (y <= 70) {
+				if (Math.abs( mContext.getSnail().getX()-x) < 10) {
+					setIcon(null);
+					mContext.getSnail().damaged(damage);
+					if(mContext.getSnail().getState() == 1) {
+						remove(mContext.getSnail());
+					}
+				}
+			}
 			try {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {
@@ -64,12 +89,36 @@ public class MagicianSkill extends Skill implements MonsterMove {
 		clearenergyBall();
 	}
 
-	@Override
 	public void right() {
 		left = true;
 		for (int i = 0; i < 100; i++) {
 			x += SKILL_SPEED;
 			setLocation(x, y);
+			if (520 <= y && y <= 530) {
+				if (Math.abs(mContext.getRedSnail().getX()-x) < 10 ) {
+					setIcon(null);
+					mContext.getRedSnail().damaged(damage);
+					if(mContext.getRedSnail().getState() == 1) {
+						remove(mContext.getRedSnail());
+					}
+				}
+			}else if(250 <= y && y <= 260) {
+				if (Math.abs(mContext.getBlueSnail().getX()-x) < 10 ) {
+					setIcon(null);
+					mContext.getBlueSnail().damaged(damage);
+					if(mContext.getBlueSnail().getState() == 1) {
+						remove(mContext.getBlueSnail());
+					}
+				}
+			}else if (y <= 70) {
+				if (Math.abs( mContext.getSnail().getX()-x) < 10) {
+					setIcon(null);
+					mContext.getSnail().damaged(damage);
+					if(mContext.getSnail().getState() == 1) {
+						remove(mContext.getSnail());
+					}
+				}
+			}
 
 			try {
 				Thread.sleep(5);
@@ -83,17 +132,14 @@ public class MagicianSkill extends Skill implements MonsterMove {
 	private void clearenergyBall() {
 		try {
 			Thread.sleep(500);
-			setIcon(energyBall);
-			Thread.sleep(50);
-			setIcon(null);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		setIcon(null);
 	}
 
-	@Override
-	public void die() {
-		// TODO Auto-generated method stub
+	public void crash() {
+		
 		
 	}
 

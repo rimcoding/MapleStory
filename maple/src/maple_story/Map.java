@@ -66,7 +66,7 @@ public class Map extends JLabel{
 
 
 	private void initData() {
-		map = new ImageIcon("images/map/background1.png");
+		map = new ImageIcon("images/map/background11.png");
 		setSize(1400, 850);
 		x = 0;
 		y = 0;

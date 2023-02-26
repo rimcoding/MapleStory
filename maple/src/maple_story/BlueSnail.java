@@ -1,6 +1,5 @@
 package maple_story;
 
-
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -9,6 +8,9 @@ public class BlueSnail extends JLabel implements MonsterMove {
 	private MapleFrame mContext;
 	// 살아있는 상태, 물방울에 죽은 상태
 	private int state;
+	// 체력 데미지
+	private int hp;
+	private int damage;
 
 	// 위치 상태
 	private int x;
@@ -25,6 +27,8 @@ public class BlueSnail extends JLabel implements MonsterMove {
 
 	// 적군 이미지
 	private ImageIcon monsterR, monsterL;
+	private ImageIcon monsterDieR, monsterDieL;
+
 
 	public BlueSnail(MapleFrame mContext, MonsterWay monsterWay) {
 		this.mContext = mContext;
@@ -89,7 +93,7 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		this.monsterWay = monsterWay;
 	}
 
-	public int getSPPED() {
+	public int getSPEED() {
 		return SPEED;
 	}
 
@@ -100,10 +104,14 @@ public class BlueSnail extends JLabel implements MonsterMove {
 	private void initData() {
 		monsterR = new ImageIcon("images/snail_blue/move/BlueSnailMoveR.gif");
 		monsterL = new ImageIcon("images/snail_blue/move/BlueSnailMoveL.gif");
+		monsterDieR = new ImageIcon("images/snail_blue/die/BlueSnailDieR.gif");
+		monsterDieL = new ImageIcon("images/snail_blue/die/BlueSnailDieL.gif");
 		x = 330;
-		y = 340;
+		y = 320;
 		left = false;
 		right = false;
+		hp = 10000;
+		state = 0;
 	}
 
 	private void setInitLayout() {
@@ -126,8 +134,11 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (left == true) {
+				if (left && state == 0) {
 					while (true) {
+						if(state == 1) {
+							break;
+						}
 						x -= SPEED;
 						setIcon(monsterL);
 						setLocation(x, y);
@@ -155,8 +166,11 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (right == true) {
+				if (right && state == 0) {
 					while (true) {
+						if(state == 1) {
+							break;
+						}
 						x += SPEED;
 						setIcon(monsterR);
 						setLocation(x, y);
@@ -176,12 +190,38 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		}).start();
 
 	}
+	public void damaged(int damage) {
+		hp -= damage;
+		if(hp > 0) {
+			
+		} else {
+			state = 1;
+			die();
+		}
+	}
 
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
-		
+		if(monsterWay == MonsterWay.LEFT) {
+			setIcon(monsterDieL);
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			setIcon(null);
+			
+		} else {
+			setIcon(monsterDieR);
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			setIcon(null);
+		}
 	}
 
 }
-

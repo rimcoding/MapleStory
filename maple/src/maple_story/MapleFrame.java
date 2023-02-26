@@ -29,6 +29,86 @@ public class MapleFrame extends JFrame {
 	private JProgressBar healthBar1 = new JProgressBar(0,100);
 	private JProgressBar healthBar2 = new JProgressBar(0,100);
 
+	public item getHpPotion() {
+		return hpPotion;
+	}
+
+	public void setHpPotion(item hpPotion) {
+		this.hpPotion = hpPotion;
+	}
+
+	public item getMpPotion() {
+		return mpPotion;
+	}
+
+	public void setMpPotion(item mpPotion) {
+		this.mpPotion = mpPotion;
+	}
+
+	public Keys getKeys() {
+		return keys;
+	}
+
+	public void setKeys(Keys keys) {
+		this.keys = keys;
+	}
+
+	public JLabel getHpPotionCount() {
+		return hpPotionCount;
+	}
+
+	public void setHpPotionCount(JLabel hpPotionCount) {
+		this.hpPotionCount = hpPotionCount;
+	}
+
+	public JLabel getMpPotionCount() {
+		return mpPotionCount;
+	}
+
+	public void setMpPotionCount(JLabel mpPotionCount) {
+		this.mpPotionCount = mpPotionCount;
+	}
+
+	public Snail getSnail() {
+		return snail;
+	}
+
+	public void setSnail(Snail snail) {
+		this.snail = snail;
+	}
+
+	public BlueSnail getBlueSnail() {
+		return blueSnail;
+	}
+
+	public void setBlueSnail(BlueSnail blueSnail) {
+		this.blueSnail = blueSnail;
+	}
+
+	public RedSnail getRedSnail() {
+		return redSnail;
+	}
+
+	public void setRedSnail(RedSnail redSnail) {
+		this.redSnail = redSnail;
+	}
+
+	public JProgressBar getHealthBar1() {
+		return healthBar1;
+	}
+
+	public void setHealthBar1(JProgressBar healthBar1) {
+		this.healthBar1 = healthBar1;
+	}
+
+	public JProgressBar getHealthBar2() {
+		return healthBar2;
+	}
+
+	public void setHealthBar2(JProgressBar healthBar2) {
+		this.healthBar2 = healthBar2;
+	}
+
 	public MapleFrame getmContext() {
 		return mContext;
 	}
@@ -80,8 +160,8 @@ public class MapleFrame extends JFrame {
 	private void initData() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1400, 850);
-		map = new Map(mContext);
 		character = new Magician(this);
+		map = new Map(mContext);
 		backgroundPlayerService = new BackgroundPlayerService(this);
 		healthBar1.setValue((int)(character.getHp()*100/character.getMaxHp()));
 		healthBar1.setForeground(Color.RED); // 체력바 색상 설정
@@ -116,6 +196,7 @@ public class MapleFrame extends JFrame {
 		keys.setLocation(100, 670);
 		hpPotionCount.setText("" + character.getHpPotion());
 		mpPotionCount.setText("" + character.getMpPotion());
+		setContentPane(map);
 		add(hpPotionCount);
 		add(mpPotionCount);
 		add(character);
@@ -127,7 +208,6 @@ public class MapleFrame extends JFrame {
 		add(hpPotion);
 		add(mpPotion);
 		add(keys);
-		add(map);
 		setVisible(true);
 	}
 
@@ -169,15 +249,22 @@ public class MapleFrame extends JFrame {
 				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 
 				} else if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
-
+					character.useSkill1();
 				} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 					if (!character.isFall() && !character.isJump()) {
 						character.jump();
 					}
 				} else if (e.getKeyCode() == KeyEvent.VK_1) {
+					
 				} else if (e.getKeyCode() == KeyEvent.VK_2) {
 				} else if (e.getKeyCode() == KeyEvent.VK_3) {
-				} else if (e.getKeyCode() == KeyEvent.VK_4) {
+				} else if (e.getKeyCode() == KeyEvent.VK_R) {
+					snail = new Snail(mContext, maple_story.MonsterWay.LEFT);
+					blueSnail = new BlueSnail(mContext, maple_story.MonsterWay.LEFT);
+					redSnail = new RedSnail(mContext, maple_story.MonsterWay.LEFT);
+					add(snail);
+					add(blueSnail);
+					add(redSnail);
 				}
 
 			}

@@ -6,8 +6,11 @@ import javax.swing.JLabel;
 
 public class Snail extends JLabel implements MonsterMove {
 	private MapleFrame mContext;
-	// 살아있는 상태, 물방울에 죽은 상태
+	// 살아있는 상태, 죽은 상태
 	private int state;
+	// 체력 데미지
+	private int hp;
+	private int damage;
 
 	// 위치 상태
 	private int x;
@@ -24,6 +27,7 @@ public class Snail extends JLabel implements MonsterMove {
 
 	// 적군 이미지
 	private ImageIcon monsterR, monsterL;
+	private ImageIcon monsterDieR, monsterDieL;
 
 	public Snail(MapleFrame mContext, MonsterWay monsterWay) {
 		this.mContext = mContext;
@@ -88,7 +92,7 @@ public class Snail extends JLabel implements MonsterMove {
 		this.monsterWay = monsterWay;
 	}
 
-	public int getSPPED() {
+	public int getSPEED() {
 		return SPEED;
 	}
 
@@ -99,10 +103,14 @@ public class Snail extends JLabel implements MonsterMove {
 	private void initData() {
 		monsterR = new ImageIcon("images/snail/move/snailmoveR.gif");
 		monsterL = new ImageIcon("images/snail/move/snailmove.gif");
+		monsterDieR = new ImageIcon("images/snail/die/snailDieR.gif");
+		monsterDieL = new ImageIcon("images/snail/die/snailDieL.gif");
 		x = 900;
-		y = 130;
+		y = 110;
 		left = false;
 		right = false;
+		hp = 1000;
+		state = 0;
 	}
 
 	private void setInitLayout() {
@@ -125,8 +133,11 @@ public class Snail extends JLabel implements MonsterMove {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (left == true) {
+				if (left && state == 0) {
 					while (true) {
+						if(state == 1) {
+							break;
+						}
 						x -= SPEED;
 						setIcon(monsterL);
 						setLocation(x, y);
@@ -154,8 +165,11 @@ public class Snail extends JLabel implements MonsterMove {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (right == true) {
+				if (right && state == 0) {
 					while (true) {
+						if(state == 1) {
+							break;
+						}
 						x += SPEED;
 						setIcon(monsterR);
 						setLocation(x, y);
@@ -175,13 +189,38 @@ public class Snail extends JLabel implements MonsterMove {
 		}).start();
 
 	}
-	public void MonsterDie() {
-		
+	public void damaged(int damage) {
+		hp -= damage;
+		if(hp > 0) {
+			
+		} else {
+			state = 1;
+			die();
+		}
 	}
 
 	@Override
 	public void die() {
-		
+		if(monsterWay == MonsterWay.LEFT) {
+			setIcon(monsterDieL);
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			setIcon(null);
+			
+		} else {
+			setIcon(monsterDieR);
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			setIcon(null);
+		}
 	}
 
 }
