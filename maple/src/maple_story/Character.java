@@ -16,6 +16,7 @@ public abstract class Character extends JLabel implements Move {
 	protected boolean right;
 	protected boolean jump;
 	protected boolean fall; // 떨어지는거
+	protected int state;
 	// 좌표
 	protected int x, y;
 	// 캐릭터 이미지
@@ -335,16 +336,17 @@ public abstract class Character extends JLabel implements Move {
 			@Override
 			public void run() {
 				hp -= damage;
+				DamagedSkin skin = new DamagedSkin(mContext, damage);
+				mContext.add(skin);
 				x -= 100;
 				y -= 30;
 				setLocation(x, y);
 				mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
 				mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
+				
 				if (hp <= 0) {
 					mContext.dispose();
 					new Die();
-					
-					
 				}
 			}
 		}).start();
@@ -356,6 +358,8 @@ public abstract class Character extends JLabel implements Move {
 			@Override
 			public void run() {
 				hp -= damage;
+				DamagedSkin skin = new DamagedSkin(mContext, damage);
+				mContext.add(skin);
 				if (x < 1200) {
 					x += 100;
 				} else {
@@ -365,10 +369,18 @@ public abstract class Character extends JLabel implements Move {
 				setLocation(x, y);
 				mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
 				mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if (hp <= 0) {
 					mContext.dispose();
 					new Die();
+					
 				}
+				
 			}
 		}).start();
 	}

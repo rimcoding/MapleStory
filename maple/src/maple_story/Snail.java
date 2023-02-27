@@ -112,7 +112,7 @@ public class Snail extends JLabel implements MonsterMove {
 		right = false;
 		hp = 3000;
 		state = 0;
-		damage = 120;
+		damage = 100;
 		mContext.setStateSnail(mContext.ALIVE);
 	}
 
