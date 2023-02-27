@@ -9,7 +9,6 @@ public class Magician extends Character {
 	private final int SKILL1_MP = 80;
 	private final int SKILL2_MP = 50;
 	private LevelUp levelUp;
-	
 
 	public MagicianSkill getMagicianSkill() {
 		return magicianSkill;
@@ -82,7 +81,7 @@ public class Magician extends Character {
 		super.levelUp();
 		levelUp = new LevelUp(mContext);
 		mContext.add(levelUp);
-		
+
 	}
 
 }

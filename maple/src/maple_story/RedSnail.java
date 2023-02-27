@@ -29,7 +29,6 @@ public class RedSnail extends JLabel implements MonsterMove {
 	private ImageIcon monsterR, monsterL;
 	private ImageIcon monsterDieR, monsterDieL;
 
-
 	public RedSnail(MapleFrame mContext, MonsterWay monsterWay) {
 		this.mContext = mContext;
 		initData();
@@ -137,7 +136,7 @@ public class RedSnail extends JLabel implements MonsterMove {
 			public void run() {
 				if (left && state == mContext.ALIVE) {
 					while (true) {
-						if(state == mContext.DEAD) {
+						if (state == mContext.DEAD) {
 							break;
 						}
 						x -= SPEED;
@@ -169,7 +168,7 @@ public class RedSnail extends JLabel implements MonsterMove {
 			public void run() {
 				if (right && state == mContext.ALIVE) {
 					while (true) {
-						if(state == mContext.DEAD) {
+						if (state == mContext.DEAD) {
 							break;
 						}
 						x += SPEED;
@@ -191,11 +190,11 @@ public class RedSnail extends JLabel implements MonsterMove {
 		}).start();
 
 	}
-	
+
 	public void damaged(int damage) {
 		hp -= damage;
-		if(hp > 0) {
-			
+		if (hp > 0) {
+
 		} else {
 			state = mContext.DEAD;
 			mContext.setStateRedSnail(mContext.DEAD);
@@ -205,7 +204,7 @@ public class RedSnail extends JLabel implements MonsterMove {
 
 	@Override
 	public void die() {
-		if(monsterWay == MonsterWay.LEFT) {
+		if (monsterWay == MonsterWay.LEFT) {
 			setIcon(monsterDieL);
 			try {
 				Thread.sleep(300);
@@ -213,7 +212,7 @@ public class RedSnail extends JLabel implements MonsterMove {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		} else {
 			setIcon(monsterDieR);
 			try {

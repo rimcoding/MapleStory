@@ -62,7 +62,8 @@ public class WarriorSkill extends Skill implements MonsterMove {
 		for (int i = 0; i < bashRight.length; i++) {
 			setIcon(bashLeft[i]);
 			if (440 <= y && y <= 450) {
-				if (Math.abs((x + 120) - mContext.getRedSnail().getX()) < 100) {
+				if (Math.abs((x + 120) - mContext.getRedSnail().getX()) < 100
+						&& mContext.getRedSnail().getState() == 0) {
 					mContext.getRedSnail().damaged(damage);
 					if (mContext.getRedSnail().getState() == 1) {
 						remove(mContext.getRedSnail());
@@ -70,7 +71,8 @@ public class WarriorSkill extends Skill implements MonsterMove {
 					}
 				}
 			} else if (170 <= y && y <= 190) {
-				if (Math.abs((x + 120) - mContext.getBlueSnail().getX()) < 100) {
+				if (Math.abs((x + 120) - mContext.getBlueSnail().getX()) < 100
+						&& mContext.getRedSnail().getState() == 0) {
 					mContext.getBlueSnail().damaged(damage);
 					if (mContext.getRedSnail().getState() == 1) {
 						remove(mContext.getBlueSnail());
@@ -78,7 +80,7 @@ public class WarriorSkill extends Skill implements MonsterMove {
 					}
 				}
 			} else if (y >= -50) {
-				if (Math.abs((x + 120) - mContext.getSnail().getX()) < 100) {
+				if (Math.abs((x + 120) - mContext.getSnail().getX()) < 100 && mContext.getRedSnail().getState() == 0) {
 					mContext.getSnail().damaged(damage);
 					if (mContext.getSnail().getState() == 1) {
 						remove(mContext.getSnail());
@@ -104,8 +106,8 @@ public class WarriorSkill extends Skill implements MonsterMove {
 		for (int i = 0; i < bashRight.length; i++) {
 			setIcon(bashRight[i]);
 			if (440 <= y && y <= 470) {
-				if (Math.abs(mContext.getRedSnail().getX() - (x + 120)) < 100) {
-					System.out.println("1");
+				if (Math.abs(mContext.getRedSnail().getX() - (x + 120)) < 100
+						&& mContext.getRedSnail().getState() == 0) {
 					mContext.getRedSnail().damaged(damage);
 					if (mContext.getRedSnail().getState() == 1) {
 						remove(mContext.getRedSnail());
@@ -113,8 +115,8 @@ public class WarriorSkill extends Skill implements MonsterMove {
 					}
 				}
 			} else if (170 <= y && y <= 190) {
-				if (Math.abs(mContext.getBlueSnail().getX() - (x + 120)) < 100) {
-					System.out.println("2");
+				if (Math.abs(mContext.getBlueSnail().getX() - (x + 120)) < 100
+						&& mContext.getBlueSnail().getState() == 0) {
 					mContext.getBlueSnail().damaged(damage);
 					if (mContext.getRedSnail().getState() == 1) {
 						remove(mContext.getBlueSnail());
@@ -122,8 +124,7 @@ public class WarriorSkill extends Skill implements MonsterMove {
 					}
 				}
 			} else if (0 > y && y >= -30) {
-				if (Math.abs(mContext.getSnail().getX() - (x + 120)) < 100) {
-					System.out.println("3");
+				if (Math.abs(mContext.getSnail().getX() - (x + 120)) < 100 && mContext.getSnail().getState() == 0) {
 					mContext.getSnail().damaged(damage);
 					if (mContext.getSnail().getState() == 1) {
 						remove(mContext.getSnail());

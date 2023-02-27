@@ -224,9 +224,7 @@ public abstract class Character extends JLabel implements Move {
 	public void setLv(int lv) {
 		this.lv = lv;
 	}
-	
-	
-	
+
 	public int getExp() {
 		return exp;
 	}
@@ -376,7 +374,7 @@ public abstract class Character extends JLabel implements Move {
 					y -= SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(5);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -516,10 +514,10 @@ public abstract class Character extends JLabel implements Move {
 				hp = maxHp;
 				// 체력이 maxHp - hp 만큼 참
 			}
-			mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
-			mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
 		}
-
+		mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
+		mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
+		repaint();
 	}
 
 	public void useMpPotion() {
@@ -533,21 +531,21 @@ public abstract class Character extends JLabel implements Move {
 				mp = maxMp;
 				// 체력이 maxHp - hp 만큼 참
 			}
-			mContext.getMpState().setText("MP:  " + mp + " / " + maxMp);
-			mContext.getHealthBar2().setValue((int) (mp * 100 / maxMp));
 		}
+		mContext.getMpState().setText("MP:  " + mp + " / " + maxMp);
+		mContext.getHealthBar2().setValue((int) (mp * 100 / maxMp));
 	}
-	
+
 	public void takeExp(int exp) {
 		this.exp += exp;
 		System.out.println(this.exp);
-		if(this.exp > MAX_EXP) {
+		if (this.exp > MAX_EXP) {
 			levelUp();
 		}
 		mContext.getExpBar().setValue(this.exp);
 		mContext.getExpState().setText("EXP: " + this.exp + " / " + MAX_EXP + " (Lv: " + lv + ")");
 	}
-	
+
 	public void levelUp() {
 		lv++;
 		maxHp += 50;
@@ -555,7 +553,11 @@ public abstract class Character extends JLabel implements Move {
 		maxMp += 50;
 		mp = maxMp;
 		exp -= 100;
-		
+		mContext.getMpPotionCount().setText("" + mpPotion);
+		mContext.getHpPotionCount().setText("" + hpPotion);
+		mContext.getHealthBar2().setValue((int) (mp * 100 / maxMp));
+		mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
+
 	}
 
 }
