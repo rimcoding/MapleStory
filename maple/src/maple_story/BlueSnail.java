@@ -111,7 +111,8 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		y = 320;
 		left = false;
 		right = false;
-		hp = 10000;
+		hp = 1234;
+		damage = 60;
 		state = 0;
 		mContext.setStateBlueSnail(mContext.ALIVE);
 	}
@@ -140,6 +141,9 @@ public class BlueSnail extends JLabel implements MonsterMove {
 					while (true) {
 						if(state == mContext.DEAD) {
 							break;
+						}
+						if (Math.abs(x - mContext.getCharacter().getX()) < 10 && Math.abs(y - mContext.getCharacter().getY()) < 100) {
+							mContext.getCharacter().beattackLeft(damage);
 						}
 						x -= SPEED;
 						setIcon(monsterL);
@@ -172,6 +176,9 @@ public class BlueSnail extends JLabel implements MonsterMove {
 					while (true) {
 						if(state == mContext.DEAD) {
 							break;
+						}
+						if (Math.abs(x - mContext.getCharacter().getX()) < 10 && Math.abs(y - mContext.getCharacter().getY()) < 100) {
+							mContext.getCharacter().beattackRight(damage);
 						}
 						x += SPEED;
 						setIcon(monsterR);

@@ -112,6 +112,7 @@ public class Snail extends JLabel implements MonsterMove {
 		right = false;
 		hp = 1000;
 		state = 0;
+		damage = 30;
 		mContext.setStateSnail(mContext.ALIVE);
 	}
 
@@ -139,6 +140,9 @@ public class Snail extends JLabel implements MonsterMove {
 					while (true) {
 						if (state == mContext.DEAD) {
 							break;
+						}
+						if (Math.abs(x - mContext.getCharacter().getX()) < 10 && Math.abs(y - mContext.getCharacter().getY()) < 100) {
+							mContext.getCharacter().beattackLeft(damage);
 						}
 						x -= SPEED;
 						setIcon(monsterL);
@@ -171,6 +175,9 @@ public class Snail extends JLabel implements MonsterMove {
 					while (true) {
 						if (state == mContext.DEAD) {
 							break;
+						}
+						if (Math.abs(x - mContext.getCharacter().getX()) < 10 && Math.abs(y - mContext.getCharacter().getY()) < 100) {
+							mContext.getCharacter().beattackRight(damage);
 						}
 						x += SPEED;
 						setIcon(monsterR);

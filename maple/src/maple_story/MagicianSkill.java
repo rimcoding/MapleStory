@@ -6,6 +6,7 @@ public class MagicianSkill extends Skill {
 
 	private ImageIcon energyBall;
 	private final int SKILL_SPEED = 5;
+	private ImageIcon skin;
 
 	public MagicianSkill(MapleFrame mContext) {
 		super(mContext);
@@ -17,7 +18,8 @@ public class MagicianSkill extends Skill {
 	@Override
 	void initData() {
 		energyBall = new ImageIcon("images/skills/Magician0.png");
-		damage = 12345;
+		skin = new ImageIcon("images/skin/skin2.png");
+		damage = 1239;
 	}
 
 	@Override
@@ -58,6 +60,7 @@ public class MagicianSkill extends Skill {
 				if (Math.abs(mContext.getRedSnail().getX() - (x + 85)) < 10 && mContext.getRedSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getRedSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getRedSnail());
 						break;
@@ -67,6 +70,7 @@ public class MagicianSkill extends Skill {
 				if (Math.abs(mContext.getBlueSnail().getX() - (x + 85)) < 10 && mContext.getBlueSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getBlueSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getBlueSnail().getState() == mContext.DEAD) {
 						remove(mContext.getBlueSnail());
 						break;
@@ -76,6 +80,7 @@ public class MagicianSkill extends Skill {
 				if (Math.abs(mContext.getSnail().getX() - (x + 85)) < 10 && mContext.getSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getSnail().getState() == mContext.DEAD) {
 						remove(mContext.getSnail());
 						break;
@@ -100,6 +105,7 @@ public class MagicianSkill extends Skill {
 				if (Math.abs(mContext.getRedSnail().getX() - (x + 85)) < 10 && mContext.getRedSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getRedSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getRedSnail());
 						break;
@@ -109,6 +115,7 @@ public class MagicianSkill extends Skill {
 				if (Math.abs(mContext.getBlueSnail().getX() - (x + 85)) < 10 && mContext.getBlueSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getBlueSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getBlueSnail().getState() == mContext.DEAD) {
 						remove(mContext.getBlueSnail());
 						break;
@@ -118,6 +125,7 @@ public class MagicianSkill extends Skill {
 				if (Math.abs(mContext.getSnail().getX() - (x + 85)) < 10 && mContext.getSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getSnail().getState() == mContext.DEAD) {
 						remove(mContext.getSnail());
 						break;
@@ -142,7 +150,22 @@ public class MagicianSkill extends Skill {
 		}
 		setIcon(null);
 	}
-
+	
+	private void damageSkin() {
+		for (int j = 0; j < 50; j++) {
+			y--;
+			setLocation(x,y);
+			setIcon(skin);
+			setSize(300,200);
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			setIcon(null);
+		}
+	}
+	
 	public void crash() {
 
 	}

@@ -9,7 +9,8 @@ public class WarriorSkill extends Skill implements MonsterMove {
 
 	private ImageIcon[] bashLeft = new ImageIcon[3];
 	private ImageIcon[] bashRight = new ImageIcon[3];
-
+	private ImageIcon skin;
+	
 	public WarriorSkill(MapleFrame mContext) {
 		super(mContext);
 		initData();
@@ -25,8 +26,9 @@ public class WarriorSkill extends Skill implements MonsterMove {
 		bashRight[0] = new ImageIcon("images/skills/warriorskill3.png");
 		bashRight[1] = new ImageIcon("images/skills/warriorskill4.png");
 		bashRight[2] = new ImageIcon("images/skills/warriorskill5.png");
+		skin = new ImageIcon("images/skin/skin2.png");
 		state = 0;
-		damage = 22222;
+		damage = 1239;
 	}
 
 	@Override
@@ -65,6 +67,7 @@ public class WarriorSkill extends Skill implements MonsterMove {
 				if (Math.abs((x + 120) - mContext.getRedSnail().getX()) < 100
 						&& mContext.getRedSnail().getState() == mContext.ALIVE) {
 					mContext.getRedSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getRedSnail());
 						break;
@@ -74,6 +77,7 @@ public class WarriorSkill extends Skill implements MonsterMove {
 				if (Math.abs((x + 120) - mContext.getBlueSnail().getX()) < 100
 						&& mContext.getRedSnail().getState() == mContext.ALIVE) {
 					mContext.getBlueSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getBlueSnail());
 						break;
@@ -83,6 +87,7 @@ public class WarriorSkill extends Skill implements MonsterMove {
 				if (Math.abs((x + 120) - mContext.getSnail().getX()) < 100
 						&& mContext.getRedSnail().getState() == mContext.ALIVE) {
 					mContext.getSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getSnail().getState() == mContext.DEAD) {
 						remove(mContext.getSnail());
 						break;
@@ -110,6 +115,7 @@ public class WarriorSkill extends Skill implements MonsterMove {
 				if (Math.abs(mContext.getRedSnail().getX() - (x + 120)) < 100
 						&& mContext.getRedSnail().getState() == mContext.ALIVE) {
 					mContext.getRedSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getRedSnail());
 						break;
@@ -119,6 +125,7 @@ public class WarriorSkill extends Skill implements MonsterMove {
 				if (Math.abs(mContext.getBlueSnail().getX() - (x + 120)) < 100
 						&& mContext.getBlueSnail().getState() == mContext.ALIVE) {
 					mContext.getBlueSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getBlueSnail());
 						break;
@@ -128,6 +135,7 @@ public class WarriorSkill extends Skill implements MonsterMove {
 				if (Math.abs(mContext.getSnail().getX() - (x + 120)) < 100
 						&& mContext.getSnail().getState() == mContext.ALIVE) {
 					mContext.getSnail().damaged(damage);
+					damageSkin();
 					if (mContext.getSnail().getState() == mContext.DEAD) {
 						remove(mContext.getSnail());
 						break;
@@ -148,6 +156,21 @@ public class WarriorSkill extends Skill implements MonsterMove {
 		setIcon(null);
 	}
 
+	private void damageSkin() {
+		for (int j = 0; j < 50; j++) {
+			y--;
+			setLocation(x,y);
+			setIcon(skin);
+			setSize(300,200);
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			setIcon(null);
+		}
+	}
+	
 	@Override
 	public void die() {
 

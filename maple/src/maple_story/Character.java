@@ -498,6 +498,25 @@ public abstract class Character extends JLabel implements Move {
 			}
 		}
 	}
+	
+	public void beattackLeft(int damage) {
+		hp -= damage;
+		x -= 100;
+		y -= 30;
+		setLocation(x, y);
+		mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
+		mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
+	}
+	
+	public void beattackRight(int damage) {
+		hp -= damage;
+		if (x < 1200) {
+			x += 100;
+		}
+		y -= 30;
+		setLocation(x, y);
+		mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
+	}
 
 	abstract void useSkill1();
 

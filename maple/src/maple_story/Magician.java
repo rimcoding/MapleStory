@@ -63,6 +63,7 @@ public class Magician extends Character {
 			mContext.getHealthBar2().setValue((int) (mp * 100 / maxMp));
 			mContext.getMpState().setText("MP:  " + mp + " / " + maxMp);
 			mContext.getExpState().setText("EXP: " + this.exp + " / " + MAX_EXP + " (Lv: " + lv + ")");
+			repaint();
 		}
 
 	}
@@ -73,6 +74,7 @@ public class Magician extends Character {
 			mp -= SKILL2_MP;
 			warriorSkill = new WarriorSkill(mContext);
 			mContext.add(warriorSkill);
+			mContext.getHealthBar2().setValue((int) (mp * 100 / maxMp));
 			mContext.getMpState().setText("MP:  " + mp + " / " + maxMp);
 			mContext.getExpState().setText("EXP: " + this.exp + " / " + MAX_EXP + " (Lv: " + lv + ")");
 		}
