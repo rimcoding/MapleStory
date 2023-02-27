@@ -55,28 +55,28 @@ public class MagicianSkill extends Skill {
 			x -= SKILL_SPEED;
 			setLocation(x, y);
 			if (510 <= y && y <= 530) {
-				if (Math.abs(mContext.getRedSnail().getX() - (x + 85)) < 10 && mContext.getRedSnail().getState() == 0) {
+				if (Math.abs(mContext.getRedSnail().getX() - (x + 85)) < 10 && mContext.getRedSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getRedSnail().damaged(damage);
-					if (mContext.getRedSnail().getState() == 1) {
+					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getRedSnail());
 						break;
 					}
 				}
 			} else if (240 <= y && y <= 260) {
-				if (Math.abs(mContext.getBlueSnail().getX() - (x + 85)) < 10 && mContext.getBlueSnail().getState() == 0) {
+				if (Math.abs(mContext.getBlueSnail().getX() - (x + 85)) < 10 && mContext.getBlueSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getBlueSnail().damaged(damage);
-					if (mContext.getBlueSnail().getState() == 1) {
+					if (mContext.getBlueSnail().getState() == mContext.DEAD) {
 						remove(mContext.getBlueSnail());
 						break;
 					}
 				}
 			} else if (y >= 50 && y <= 70) {
-				if (Math.abs(mContext.getSnail().getX() - (x + 85)) < 10 && mContext.getSnail().getState() == 0) {
+				if (Math.abs(mContext.getSnail().getX() - (x + 85)) < 10 && mContext.getSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getSnail().damaged(damage);
-					if (mContext.getSnail().getState() == 1) {
+					if (mContext.getSnail().getState() == mContext.DEAD) {
 						remove(mContext.getSnail());
 						break;
 					}
@@ -97,28 +97,28 @@ public class MagicianSkill extends Skill {
 			x += SKILL_SPEED;
 			setLocation(x, y);
 			if (510 <= y && y <= 530) {
-				if (Math.abs(mContext.getRedSnail().getX() - (x + 85)) < 10 && mContext.getRedSnail().getState() == 0) {
+				if (Math.abs(mContext.getRedSnail().getX() - (x + 85)) < 10 && mContext.getRedSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getRedSnail().damaged(damage);
-					if (mContext.getRedSnail().getState() == 1) {
+					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getRedSnail());
 						break;
 					}
 				}
 			} else if (240 <= y && y <= 260) {
-				if (Math.abs(mContext.getBlueSnail().getX() - (x + 85)) < 10 && mContext.getBlueSnail().getState() == 0) {
+				if (Math.abs(mContext.getBlueSnail().getX() - (x + 85)) < 10 && mContext.getBlueSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getBlueSnail().damaged(damage);
-					if (mContext.getBlueSnail().getState() == 1) {
+					if (mContext.getBlueSnail().getState() == mContext.DEAD) {
 						remove(mContext.getBlueSnail());
 						break;
 					}
 				}
 			} else if (y >= 50 && y <= 70) {
-				if (Math.abs(mContext.getSnail().getX() - (x + 85)) < 10 && mContext.getSnail().getState() == 0) {
+				if (Math.abs(mContext.getSnail().getX() - (x + 85)) < 10 && mContext.getSnail().getState() == mContext.ALIVE) {
 					setIcon(null);
 					mContext.getSnail().damaged(damage);
-					if (mContext.getSnail().getState() == 1) {
+					if (mContext.getSnail().getState() == mContext.DEAD) {
 						remove(mContext.getSnail());
 						break;
 					}
