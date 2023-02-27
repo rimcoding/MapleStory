@@ -11,7 +11,7 @@ public class Snail extends JLabel implements MonsterMove {
 	// 체력 데미지 경험치
 	private int hp;
 	private int damage;
-	final int EXP = 2;
+	final int EXP = 10;
 
 	// 위치 상태
 	private int x;
@@ -110,9 +110,9 @@ public class Snail extends JLabel implements MonsterMove {
 		y = 110;
 		left = false;
 		right = false;
-		hp = 1000;
+		hp = 3000;
 		state = 0;
-		damage = 30;
+		damage = 120;
 		mContext.setStateSnail(mContext.ALIVE);
 	}
 

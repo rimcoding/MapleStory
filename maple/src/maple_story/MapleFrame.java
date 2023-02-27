@@ -308,12 +308,6 @@ public class MapleFrame extends JFrame {
 					character.setRight(false);
 				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 					character.setLeft(false);
-
-				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-					character.setUp(false);
-
-				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					character.setDown(false);
 				}
 			}
 
@@ -327,9 +321,6 @@ public class MapleFrame extends JFrame {
 					if (!character.isLeft()) {
 						character.left();
 					}
-				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-
-				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				} else if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
 					character.useSkill1();
 				} else if (e.getKeyCode() == KeyEvent.VK_SHIFT) {

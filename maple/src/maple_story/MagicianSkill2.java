@@ -5,13 +5,13 @@ import java.awt.event.KeyEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-public class WarriorSkill extends Skill implements MonsterMove {
+public class MagicianSkill2 extends Skill implements MonsterMove {
 
 	private ImageIcon[] bashLeft = new ImageIcon[3];
 	private ImageIcon[] bashRight = new ImageIcon[3];
 	private ImageIcon skin;
 	
-	public WarriorSkill(MapleFrame mContext) {
+	public MagicianSkill2(MapleFrame mContext) {
 		super(mContext);
 		initData();
 		setInitLayout();
@@ -85,7 +85,7 @@ public class WarriorSkill extends Skill implements MonsterMove {
 				}
 			} else if (y >= -50) {
 				if (Math.abs((x + 120) - mContext.getSnail().getX()) < 100
-						&& mContext.getRedSnail().getState() == mContext.ALIVE) {
+						&& mContext.getSnail().getState() == mContext.ALIVE) {
 					mContext.getSnail().damaged(damage);
 					damageSkin();
 					if (mContext.getSnail().getState() == mContext.DEAD) {

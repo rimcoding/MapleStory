@@ -11,7 +11,7 @@ public class RedSnail extends JLabel implements MonsterMove {
 	// 체력 데미지 경험치
 	private int hp;
 	private int damage;
-	final int EXP = 6;
+	final int EXP = 5;
 	// 위치 상태
 	private int x;
 	private int y;
@@ -109,8 +109,8 @@ public class RedSnail extends JLabel implements MonsterMove {
 		y = 590;
 		left = false;
 		right = false;
-		hp = 2000;
-		damage = 100;
+		hp = 1000;
+		damage = 50;
 		state = 0;
 		mContext.setStateRedSnail(mContext.ALIVE);
 	}
@@ -147,7 +147,7 @@ public class RedSnail extends JLabel implements MonsterMove {
 						setIcon(monsterL);
 						setLocation(x, y);
 						try {
-							Thread.sleep(10);
+							Thread.sleep(15);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}

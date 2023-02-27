@@ -11,7 +11,7 @@ public class BlueSnail extends JLabel implements MonsterMove {
 	// 체력 데미지 경험치
 	private int hp;
 	private int damage;
-	final int EXP = 4;
+	final int EXP = 8;
 
 	// 위치 상태
 	private int x;
@@ -111,8 +111,8 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		y = 320;
 		left = false;
 		right = false;
-		hp = 1234;
-		damage = 60;
+		hp = 2000;
+		damage = 80;
 		state = 0;
 		mContext.setStateBlueSnail(mContext.ALIVE);
 	}
@@ -149,7 +149,7 @@ public class BlueSnail extends JLabel implements MonsterMove {
 						setIcon(monsterL);
 						setLocation(x, y);
 						try {
-							Thread.sleep(10);
+							Thread.sleep(13);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}

@@ -2,7 +2,7 @@ package maple_story;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -14,22 +14,13 @@ public abstract class Character extends JLabel implements Move {
 
 	protected boolean left;
 	protected boolean right;
-	protected boolean up; // 사다리 올라가기
-	protected boolean down; // 사다리 내려가기
 	protected boolean jump;
-	protected boolean attack; // 공격 모션중 (공격이나 스킬사용중 움직이지 못하게)
 	protected boolean fall; // 떨어지는거
-	protected boolean leftWallCrash;
-	protected boolean rightWallCrash;
-	protected boolean ladder; // 사다리에 있는 상태
 	// 좌표
 	protected int x, y;
 	// 캐릭터 이미지
 	protected ImageIcon[] playerL = new ImageIcon[3];
 	protected ImageIcon[] playerR = new ImageIcon[3];
-	protected ImageIcon[] playerLadder = new ImageIcon[2];
-	protected ImageIcon[] playerSwingL = new ImageIcon[3];
-	protected ImageIcon[] playerSwingR = new ImageIcon[3];
 	protected ImageIcon playerLevelUp;
 	// 속도
 	protected final int SPEED = 8;
@@ -73,14 +64,6 @@ public abstract class Character extends JLabel implements Move {
 		this.mContext = mContext;
 	}
 
-	public boolean isLadder() {
-		return ladder;
-	}
-
-	public void setLadder(boolean ladder) {
-		this.ladder = ladder;
-	}
-
 	public boolean isLeft() {
 		return left;
 	}
@@ -97,36 +80,12 @@ public abstract class Character extends JLabel implements Move {
 		this.right = right;
 	}
 
-	public boolean isUp() {
-		return up;
-	}
-
-	public void setUp(boolean up) {
-		this.up = up;
-	}
-
-	public boolean isDown() {
-		return down;
-	}
-
-	public void setDown(boolean down) {
-		this.down = down;
-	}
-
 	public boolean isJump() {
 		return jump;
 	}
 
 	public void setJump(boolean jump) {
 		this.jump = jump;
-	}
-
-	public boolean isAttack() {
-		return attack;
-	}
-
-	public void setAttack(boolean attack) {
-		this.attack = attack;
 	}
 
 	public int getX() {
@@ -159,30 +118,6 @@ public abstract class Character extends JLabel implements Move {
 
 	public void setPlayerR(ImageIcon[] playerR) {
 		this.playerR = playerR;
-	}
-
-	public ImageIcon[] getPlayerLadder() {
-		return playerLadder;
-	}
-
-	public void setPlayerLadder(ImageIcon[] playerLadder) {
-		this.playerLadder = playerLadder;
-	}
-
-	public ImageIcon[] getPlayerSwingL() {
-		return playerSwingL;
-	}
-
-	public void setPlayerSwingL(ImageIcon[] playerSwingL) {
-		this.playerSwingL = playerSwingL;
-	}
-
-	public ImageIcon[] getPlayerSwingR() {
-		return playerSwingR;
-	}
-
-	public void setPlayerSwingR(ImageIcon[] playerSwingR) {
-		this.playerSwingR = playerSwingR;
 	}
 
 	public int getMaxHp() {
@@ -273,22 +208,6 @@ public abstract class Character extends JLabel implements Move {
 		this.mpPotion = mpPotion;
 	}
 
-	public boolean isLeftWallCrash() {
-		return leftWallCrash;
-	}
-
-	public void setLeftWallCrash(boolean leftWallCrash) {
-		this.leftWallCrash = leftWallCrash;
-	}
-
-	public boolean isRightWallCrash() {
-		return rightWallCrash;
-	}
-
-	public void setRightWallCrash(boolean rightWallCrash) {
-		this.rightWallCrash = rightWallCrash;
-	}
-
 	@Override
 	public void left() {
 		pWay = PlayerWay.LEFT;
@@ -360,68 +279,6 @@ public abstract class Character extends JLabel implements Move {
 	}
 
 	@Override
-	public void up() {
-
-		ladder = true;
-		arrN = 0;
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				while (up) {
-					setIcon(playerLadder[arrN]);
-					repaint();
-					y -= SPEED;
-					setLocation(x, y);
-					try {
-						Thread.sleep(5);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					arrN += 1;
-					if (arrN > 1) {
-						arrN = 0;
-					}
-				}
-				up = false;
-			}
-		}).start();
-	}
-
-	@Override
-	public void down() {
-		left = false;
-		right = false;
-		ladder = true;
-		arrN = 0;
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				while (down) {
-					setIcon(playerLadder[arrN]);
-					repaint();
-					y += SPEED;
-					setLocation(x, y);
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					arrN += 1;
-					if (arrN > 1) {
-						arrN = 0;
-					}
-
-				}
-				down = false;
-			}
-		}).start();
-	}
-
-	@Override
 	public void jump() {
 		jump = true;
 		new Thread(new Runnable() {
@@ -472,50 +329,48 @@ public abstract class Character extends JLabel implements Move {
 		}).start();
 	}
 
-	@Override
-	public void attackLeft() {
-		attack = true;
-		for (int i = 0; i < playerSwingL.length; i++) {
-			setIcon(playerSwingL[i]);
-			repaint();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+	public void beattackLeft(int damage) {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				hp -= damage;
+				x -= 100;
+				y -= 30;
+				setLocation(x, y);
+				mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
+				mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
+				if (hp <= 0) {
+					mContext.dispose();
+					new Die();
+					
+					
+				}
 			}
-		}
+		}).start();
 	}
 
-	@Override
-	public void attackRight() {
-		attack = false;
-		for (int i = 0; i < playerSwingR.length; i++) {
-			setIcon(playerSwingR[i]);
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public void beattackLeft(int damage) {
-		hp -= damage;
-		x -= 100;
-		y -= 30;
-		setLocation(x, y);
-		mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
-		mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
-	}
-	
 	public void beattackRight(int damage) {
-		hp -= damage;
-		if (x < 1200) {
-			x += 100;
-		}
-		y -= 30;
-		setLocation(x, y);
-		mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				hp -= damage;
+				if (x < 1200) {
+					x += 100;
+				} else {
+					x = 1300;
+				}
+				y -= 30;
+				setLocation(x, y);
+				mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
+				mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
+				if (hp <= 0) {
+					mContext.dispose();
+					new Die();
+				}
+			}
+		}).start();
 	}
 
 	abstract void useSkill1();
@@ -523,36 +378,47 @@ public abstract class Character extends JLabel implements Move {
 	abstract void useSkill2();
 
 	public void useHpPotion() {
-		if (hp == maxHp) {
-			// 체력이 가득 차서 포션 못먹음
-		} else {
-			hpPotion--;
-			mContext.getHpPotionCount().setText("" + hpPotion);
-			hp += 100;
-			if (hp > maxHp) {
-				hp = maxHp;
-				// 체력이 maxHp - hp 만큼 참
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				if (hp == maxHp) {
+					// 체력이 가득 차서 포션 못먹음
+				} else {
+					hpPotion--;
+					mContext.getHpPotionCount().setText("" + hpPotion);
+					hp += 100;
+					if (hp > maxHp) {
+						hp = maxHp;
+						// 체력이 maxHp - hp 만큼 참
+					}
+				}
+				mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
+				mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
 			}
-		}
-		mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
-		mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
-		repaint();
+		}).start();
 	}
 
 	public void useMpPotion() {
-		if (mp == maxMp) {
-			// 체력이 가득 차서 포션 못먹음
-		} else {
-			mpPotion--;
-			mContext.getMpPotionCount().setText("" + mpPotion);
-			mp += 100;
-			if (mp > maxMp) {
-				mp = maxMp;
-				// 체력이 maxHp - hp 만큼 참
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				if (mp == maxMp) {
+					// 체력이 가득 차서 포션 못먹음
+				} else {
+					mpPotion--;
+					mContext.getMpPotionCount().setText("" + mpPotion);
+					mp += 100;
+					if (mp > maxMp) {
+						mp = maxMp;
+						// 체력이 maxHp - hp 만큼 참
+					}
+				}
+				mContext.getMpState().setText("MP:  " + mp + " / " + maxMp);
+				mContext.getHealthBar2().setValue((int) (mp * 100 / maxMp));
 			}
-		}
-		mContext.getMpState().setText("MP:  " + mp + " / " + maxMp);
-		mContext.getHealthBar2().setValue((int) (mp * 100 / maxMp));
+		}).start();
 	}
 
 	public void takeExp(int exp) {
@@ -563,6 +429,7 @@ public abstract class Character extends JLabel implements Move {
 		}
 		mContext.getExpBar().setValue(this.exp);
 		mContext.getExpState().setText("EXP: " + this.exp + " / " + MAX_EXP + " (Lv: " + lv + ")");
+		mContext.getExpState().setText("EXP: " + this.exp + " / " + MAX_EXP + " (Lv: " + lv + ")");
 	}
 
 	public void levelUp() {
@@ -572,11 +439,9 @@ public abstract class Character extends JLabel implements Move {
 		maxMp += 50;
 		mp = maxMp;
 		exp -= 100;
-		mContext.getMpPotionCount().setText("" + mpPotion);
-		mContext.getHpPotionCount().setText("" + hpPotion);
+		mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
+		mContext.getMpState().setText("MP:  " + mp + " / " + maxMp);
 		mContext.getHealthBar2().setValue((int) (mp * 100 / maxMp));
 		mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
-
 	}
-
 }
