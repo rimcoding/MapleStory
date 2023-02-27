@@ -6,13 +6,12 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-
 public abstract class Character extends JLabel implements Move {
 
 	MapleFrame mContext;
 	// 상태
 	private PlayerWay pWay;
-	
+
 	protected boolean left;
 	protected boolean right;
 	protected boolean up; // 사다리 올라가기
@@ -31,6 +30,7 @@ public abstract class Character extends JLabel implements Move {
 	protected ImageIcon[] playerLadder = new ImageIcon[2];
 	protected ImageIcon[] playerSwingL = new ImageIcon[3];
 	protected ImageIcon[] playerSwingR = new ImageIcon[3];
+	protected ImageIcon playerLevelUp;
 	// 속도
 	protected final int SPEED = 8;
 	protected final int JUMP_SPEED = 2;
@@ -39,9 +39,9 @@ public abstract class Character extends JLabel implements Move {
 	protected int hp;
 	protected int maxMp;
 	protected int mp;
-	protected int str;
-	protected int wis;
 	protected int lv;
+	final int MAX_EXP = 100;
+	protected int exp;
 	// 배열 숫자용
 	protected int arrN;
 	// 아이템
@@ -49,14 +49,14 @@ public abstract class Character extends JLabel implements Move {
 	protected int mpPotion;
 	// 메이플 프레임
 
-	
-	
 	public Character(MapleFrame mContext) {
 		this.mContext = mContext;
-		hpPotion = 10;
-		mpPotion = 10;
+		hpPotion = 999;
+		mpPotion = 999;
+		exp = 0;
+		playerLevelUp = new ImageIcon("images/characters/levelup.gif");
 	}
-	
+
 	public PlayerWay getpWay() {
 		return pWay;
 	}
@@ -69,21 +69,17 @@ public abstract class Character extends JLabel implements Move {
 		return mContext;
 	}
 
-
 	public void setmContext(MapleFrame mContext) {
 		this.mContext = mContext;
 	}
-
 
 	public boolean isLadder() {
 		return ladder;
 	}
 
-
 	public void setLadder(boolean ladder) {
 		this.ladder = ladder;
 	}
-
 
 	public boolean isLeft() {
 		return left;
@@ -221,28 +217,22 @@ public abstract class Character extends JLabel implements Move {
 		this.mp = mp;
 	}
 
-	public int getStr() {
-		return str;
-	}
-
-	public void setStr(int str) {
-		this.str = str;
-	}
-
-	public int getWis() {
-		return wis;
-	}
-
-	public void setWis(int wis) {
-		this.wis = wis;
-	}
-
 	public int getLv() {
 		return lv;
 	}
 
 	public void setLv(int lv) {
 		this.lv = lv;
+	}
+	
+	
+	
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
 	}
 
 	public int getArrN() {
@@ -373,7 +363,7 @@ public abstract class Character extends JLabel implements Move {
 
 	@Override
 	public void up() {
-		
+
 		ladder = true;
 		arrN = 0;
 		new Thread(new Runnable() {
@@ -426,7 +416,7 @@ public abstract class Character extends JLabel implements Move {
 					if (arrN > 1) {
 						arrN = 0;
 					}
-					
+
 				}
 				down = false;
 			}
@@ -442,7 +432,7 @@ public abstract class Character extends JLabel implements Move {
 			public void run() {
 				for (int i = 0; i < 300 / JUMP_SPEED; i++) {
 					if (y < 2) {
-						y = 0; 
+						y = 0;
 					} else {
 						y -= JUMP_SPEED;
 					}
@@ -476,9 +466,9 @@ public abstract class Character extends JLabel implements Move {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					
+
 				}
-				
+
 				fall = false;
 			}
 		}).start();
@@ -519,11 +509,15 @@ public abstract class Character extends JLabel implements Move {
 		if (hp == maxHp) {
 			// 체력이 가득 차서 포션 못먹음
 		} else {
+			hpPotion--;
+			mContext.getHpPotionCount().setText("" + hpPotion);
 			hp += 100;
 			if (hp > maxHp) {
-				hp = 100;
+				hp = maxHp;
 				// 체력이 maxHp - hp 만큼 참
 			}
+			mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
+			mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
 		}
 
 	}
@@ -532,12 +526,36 @@ public abstract class Character extends JLabel implements Move {
 		if (mp == maxMp) {
 			// 체력이 가득 차서 포션 못먹음
 		} else {
+			mpPotion--;
+			mContext.getMpPotionCount().setText("" + mpPotion);
 			mp += 100;
 			if (mp > maxMp) {
-				mp = 100;
+				mp = maxMp;
 				// 체력이 maxHp - hp 만큼 참
 			}
+			mContext.getMpState().setText("MP:  " + mp + " / " + maxMp);
+			mContext.getHealthBar2().setValue((int) (mp * 100 / maxMp));
 		}
+	}
+	
+	public void takeExp(int exp) {
+		this.exp += exp;
+		System.out.println(this.exp);
+		if(this.exp > MAX_EXP) {
+			levelUp();
+		}
+		mContext.getExpBar().setValue(this.exp);
+		mContext.getExpState().setText("EXP: " + this.exp + " / " + MAX_EXP + " (Lv: " + lv + ")");
+	}
+	
+	public void levelUp() {
+		lv++;
+		maxHp += 50;
+		hp = maxHp;
+		maxMp += 50;
+		mp = maxMp;
+		exp -= 100;
+		
 	}
 
 }

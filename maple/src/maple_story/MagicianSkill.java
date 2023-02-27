@@ -12,6 +12,9 @@ public class MagicianSkill extends Skill {
 
 	public MagicianSkill(MapleFrame mContext) {
 		super(mContext);
+		initData();
+		setInitLayout();
+		initThread();
 	}
 
 	@Override
@@ -50,33 +53,35 @@ public class MagicianSkill extends Skill {
 
 	public void left() {
 		left = true;
-	System.out.println(x+" "+y);
 		 
 		for  (int i = 0; i < 100; i++) {
 			x -= SKILL_SPEED;
 			setLocation(x, y);
-			if (520 <= y && y <= 530) {
+			if (510 <= y && y <= 530) {
 				if (Math.abs(mContext.getRedSnail().getX()-x) < 10 ) {
 					setIcon(null);
 					mContext.getRedSnail().damaged(damage);
 					if(mContext.getRedSnail().getState() == 1) {
 						remove(mContext.getRedSnail());
+						break;
 					}
 				}
-			}else if(250 <= y && y <= 260) {
+			}else if(240 <= y && y <= 260) {
 				if (Math.abs(mContext.getBlueSnail().getX()-x) < 10 ) {
 					setIcon(null);
 					mContext.getBlueSnail().damaged(damage);
 					if(mContext.getBlueSnail().getState() == 1) {
 						remove(mContext.getBlueSnail());
+						break;
 					}
 				}
-			}else if (y <= 70) {
+			}else if (y >= 50 && y <= 70) {
 				if (Math.abs( mContext.getSnail().getX()-x) < 10) {
 					setIcon(null);
 					mContext.getSnail().damaged(damage);
 					if(mContext.getSnail().getState() == 1) {
 						remove(mContext.getSnail());
+						break;
 					}
 				}
 			}
@@ -94,28 +99,31 @@ public class MagicianSkill extends Skill {
 		for (int i = 0; i < 100; i++) {
 			x += SKILL_SPEED;
 			setLocation(x, y);
-			if (520 <= y && y <= 530) {
+			if (510 <= y && y <= 530) {
 				if (Math.abs(mContext.getRedSnail().getX()-x) < 10 ) {
 					setIcon(null);
 					mContext.getRedSnail().damaged(damage);
 					if(mContext.getRedSnail().getState() == 1) {
 						remove(mContext.getRedSnail());
+						break;
 					}
 				}
-			}else if(250 <= y && y <= 260) {
+			}else if(240 <= y && y <= 260) {
 				if (Math.abs(mContext.getBlueSnail().getX()-x) < 10 ) {
 					setIcon(null);
 					mContext.getBlueSnail().damaged(damage);
 					if(mContext.getBlueSnail().getState() == 1) {
 						remove(mContext.getBlueSnail());
+						break;
 					}
 				}
-			}else if (y <= 70) {
+			}else if (y >= 50 && y <= 70) {
 				if (Math.abs( mContext.getSnail().getX()-x) < 10) {
 					setIcon(null);
 					mContext.getSnail().damaged(damage);
 					if(mContext.getSnail().getState() == 1) {
 						remove(mContext.getSnail());
+						break;
 					}
 				}
 			}

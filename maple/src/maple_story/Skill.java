@@ -10,7 +10,6 @@ public abstract class Skill extends JLabel {
 	protected int x, y;
 	// 데미지 mp소모량
 	protected int damage;
-	protected int exhaustMp;
 	// 방향
 	protected boolean left; 
 	protected boolean right;
@@ -21,9 +20,7 @@ public abstract class Skill extends JLabel {
 	
 	public Skill(MapleFrame mContext) {
 		this.mContext = mContext;
-		initData();
-		setInitLayout();
-		initThread();
+		
 	}
 	
 	abstract void initData();

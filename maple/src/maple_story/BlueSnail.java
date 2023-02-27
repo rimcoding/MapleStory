@@ -8,9 +8,10 @@ public class BlueSnail extends JLabel implements MonsterMove {
 	private MapleFrame mContext;
 	// 살아있는 상태, 물방울에 죽은 상태
 	private int state;
-	// 체력 데미지
+	// 체력 데미지 경험치
 	private int hp;
 	private int damage;
+	final int EXP = 4;
 
 	// 위치 상태
 	private int x;
@@ -112,6 +113,7 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		right = false;
 		hp = 10000;
 		state = 0;
+		mContext.setStateBlueSnail(mContext.ALIVE);
 	}
 
 	private void setInitLayout() {
@@ -134,9 +136,9 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (left && state == 0) {
+				if (left && state == mContext.ALIVE) {
 					while (true) {
-						if(state == 1) {
+						if(state == mContext.DEAD) {
 							break;
 						}
 						x -= SPEED;
@@ -166,9 +168,9 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (right && state == 0) {
+				if (right && state == mContext.ALIVE) {
 					while (true) {
-						if(state == 1) {
+						if(state == mContext.DEAD) {
 							break;
 						}
 						x += SPEED;
@@ -195,7 +197,8 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		if(hp > 0) {
 			
 		} else {
-			state = 1;
+			state = mContext.DEAD;
+			mContext.setStateBlueSnail(1);
 			die();
 		}
 	}
@@ -205,23 +208,24 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		if(monsterWay == MonsterWay.LEFT) {
 			setIcon(monsterDieL);
 			try {
-				Thread.sleep(300);
+				Thread.sleep(150);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			setIcon(null);
 			
 		} else {
 			setIcon(monsterDieR);
 			try {
-				Thread.sleep(300);
+				Thread.sleep(150);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			setIcon(null);
 		}
+		setLocation(-100, -100);
+		setIcon(null);
+		mContext.getCharacter().takeExp(EXP);
 	}
 
 }

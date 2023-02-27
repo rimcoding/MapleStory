@@ -4,7 +4,6 @@ import javax.swing.ImageIcon;
 
 public class Warrior extends Character {
 
-
 	public Warrior(MapleFrame mContext) {
 		super(mContext);
 		initData();
@@ -14,8 +13,6 @@ public class Warrior extends Character {
 		maxMp = 300;
 		hp = maxHp;
 		mp = maxMp;
-		str = 30;
-		wis = 5;
 	}
 
 	private void initData() {

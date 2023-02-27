@@ -8,9 +8,10 @@ public class Snail extends JLabel implements MonsterMove {
 	private MapleFrame mContext;
 	// 살아있는 상태, 죽은 상태
 	private int state;
-	// 체력 데미지
+	// 체력 데미지 경험치
 	private int hp;
 	private int damage;
+	final int EXP = 2;
 
 	// 위치 상태
 	private int x;
@@ -111,6 +112,7 @@ public class Snail extends JLabel implements MonsterMove {
 		right = false;
 		hp = 1000;
 		state = 0;
+		mContext.setStateSnail(mContext.ALIVE);
 	}
 
 	private void setInitLayout() {
@@ -133,9 +135,9 @@ public class Snail extends JLabel implements MonsterMove {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (left && state == 0) {
+				if (left && state == mContext.ALIVE) {
 					while (true) {
-						if(state == 1) {
+						if(state == mContext.DEAD) {
 							break;
 						}
 						x -= SPEED;
@@ -165,9 +167,9 @@ public class Snail extends JLabel implements MonsterMove {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (right && state == 0) {
+				if (right && state == mContext.ALIVE) {
 					while (true) {
-						if(state == 1) {
+						if(state == mContext.DEAD) {
 							break;
 						}
 						x += SPEED;
@@ -194,7 +196,8 @@ public class Snail extends JLabel implements MonsterMove {
 		if(hp > 0) {
 			
 		} else {
-			state = 1;
+			state = mContext.DEAD;
+			mContext.setStateSnail(mContext.DEAD);
 			die();
 		}
 	}
@@ -209,7 +212,6 @@ public class Snail extends JLabel implements MonsterMove {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			setIcon(null);
 			
 		} else {
 			setIcon(monsterDieR);
@@ -219,8 +221,10 @@ public class Snail extends JLabel implements MonsterMove {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			setIcon(null);
 		}
+		setLocation(-100, -100);
+		setIcon(null);
+		mContext.getCharacter().takeExp(EXP);
 	}
 
 }

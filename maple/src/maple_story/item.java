@@ -3,13 +3,13 @@ package maple_story;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class item extends JLabel{
+public class Item extends JLabel{
 	
 	private ImageIcon hpPotion;
 	private ImageIcon mpPotion;
 	private MapleFrame mContext;
 	
-	public item(MapleFrame mContext) {
+	public Item(MapleFrame mContext) {
 		this.mContext = mContext;
 		initData();
 		setInitLayout();

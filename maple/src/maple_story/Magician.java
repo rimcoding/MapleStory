@@ -3,8 +3,12 @@ package maple_story;
 import javax.swing.ImageIcon;
 
 public class Magician extends Character {
-	
+
 	private MagicianSkill magicianSkill;
+	private WarriorSkill warriorSkill;
+	private final int SKILL1_MP = 80;
+	private final int SKILL2_MP = 50;
+	private LevelUp levelUp;
 	
 
 	public MagicianSkill getMagicianSkill() {
@@ -17,13 +21,11 @@ public class Magician extends Character {
 
 	public Magician(MapleFrame mContext) {
 		super(mContext);
-		lv = 10;
+		lv = 1;
 		maxHp = 300;
 		maxMp = 500;
 		hp = maxHp;
 		mp = maxMp;
-		str = 5;
-		wis = 30;
 		initData();
 		setInitLayout();
 	}
@@ -55,16 +57,32 @@ public class Magician extends Character {
 
 	@Override
 	void useSkill1() {
-		
-		magicianSkill = new MagicianSkill(mContext);
-		mContext.add(magicianSkill);
+		if (mp > SKILL1_MP) {
+			mp -= SKILL1_MP;
+			magicianSkill = new MagicianSkill(mContext);
+			mContext.add(magicianSkill);
+			mContext.getHealthBar2().setValue((int) (mp * 100 / maxMp));
+			mContext.getExpState().setText("EXP: " + this.exp + " / " + MAX_EXP + " (Lv: " + lv + ")");
+		}
 
 	}
 
 	@Override
 	void useSkill2() {
-		// TODO Auto-generated method stub
+		if (mp > SKILL2_MP) {
+			mp -= SKILL2_MP;
+			warriorSkill = new WarriorSkill(mContext);
+			mContext.add(warriorSkill);
+			mContext.getExpState().setText("EXP: " + this.exp + " / " + MAX_EXP + " (Lv: " + lv + ")");
+		}
+	}
 
+	@Override
+	public void levelUp() {
+		super.levelUp();
+		levelUp = new LevelUp(mContext);
+		mContext.add(levelUp);
+		
 	}
 
 }
