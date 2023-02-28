@@ -336,13 +336,21 @@ public abstract class Character extends JLabel implements CharacterMove {
 			@Override
 			public void run() {
 				hp -= damage;
-				DamagedSkin skin = new DamagedSkin(mContext, damage);
-				mContext.add(skin);
-				x -= 100;
-				y -= 30;
-				setLocation(x, y);
 				mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
 				mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
+				DamagedSkin skin = new DamagedSkin(mContext, damage);
+				mContext.add(skin);
+				for (int i = 0; i < 30; i++) {
+					x -= 3;
+					y--;
+					setLocation(x, y);
+					try {
+						Thread.sleep(2);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 
 				if (hp <= 0) {
 					mContext.dispose();
@@ -358,17 +366,26 @@ public abstract class Character extends JLabel implements CharacterMove {
 			@Override
 			public void run() {
 				hp -= damage;
-				DamagedSkin skin = new DamagedSkin(mContext, damage);
-				mContext.add(skin);
-				if (x < 1200) {
-					x += 100;
-				} else {
-					x = 1300;
-				}
-				y -= 30;
-				setLocation(x, y);
 				mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
 				mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
+				DamagedSkin skin = new DamagedSkin(mContext, damage);
+				mContext.add(skin);
+				for (int i = 0; i < 30; i++) {
+					if (x < 1297) {
+						x += 3;
+					} else {
+						x = 1300;
+					}
+					y--;
+					setLocation(x, y);
+					try {
+						Thread.sleep(2);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
@@ -398,13 +415,13 @@ public abstract class Character extends JLabel implements CharacterMove {
 					// 체력이 가득 차서 포션 못먹음
 				} else {
 					hpPotion--;
-					mContext.getHpPotionCount().setText("" + hpPotion);
 					hp += 100;
 					if (hp > maxHp) {
 						hp = maxHp;
 						// 체력이 maxHp - hp 만큼 참
 					}
 				}
+				mContext.getHpPotionCount().setText("" + hpPotion);
 				mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
 				mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
 			}
@@ -420,13 +437,13 @@ public abstract class Character extends JLabel implements CharacterMove {
 					// 체력이 가득 차서 포션 못먹음
 				} else {
 					mpPotion--;
-					mContext.getMpPotionCount().setText("" + mpPotion);
 					mp += 100;
 					if (mp > maxMp) {
 						mp = maxMp;
 						// 체력이 maxHp - hp 만큼 참
 					}
 				}
+				mContext.getMpPotionCount().setText("" + mpPotion);
 				mContext.getMpState().setText("MP:  " + mp + " / " + maxMp);
 				mContext.getHealthBar2().setValue((int) (mp * 100 / maxMp));
 			}
@@ -440,7 +457,6 @@ public abstract class Character extends JLabel implements CharacterMove {
 			levelUp();
 		}
 		mContext.getExpBar().setValue(this.exp);
-		mContext.getExpState().setText("EXP: " + this.exp + " / " + MAX_EXP + " (Lv: " + lv + ")");
 		mContext.getExpState().setText("EXP: " + this.exp + " / " + MAX_EXP + " (Lv: " + lv + ")");
 	}
 

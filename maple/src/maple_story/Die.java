@@ -26,7 +26,7 @@ public class Die extends JFrame {
 		setLocationRelativeTo(null);
 		add(label);
 		death = new JOptionPane();
-		death.showMessageDialog(null, "캐릭터가 사망했습니다. 확인을 누르시면 새로 시작합니다.");
+		death.showMessageDialog(null, "캐릭터가 사망했습니다.\n확인을 누르시면 새로 시작합니다.");
 		dispose();
 		new Login();
 
