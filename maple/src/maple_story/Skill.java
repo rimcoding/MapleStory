@@ -28,5 +28,4 @@ public abstract class Skill extends JLabel {
 
 	abstract void initThread();
 
-	abstract void used();
 }

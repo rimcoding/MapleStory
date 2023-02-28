@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class BlueSnail extends JLabel implements MonsterMove {
+public class BlueSnail extends JLabel implements EtcMove {
 	private MapleFrame mContext;
 	// 살아있는 상태, 물방울에 죽은 상태
 	private int state;
@@ -29,7 +29,6 @@ public class BlueSnail extends JLabel implements MonsterMove {
 	// 적군 이미지
 	private ImageIcon monsterR, monsterL;
 	private ImageIcon monsterDieR, monsterDieL;
-
 
 	public BlueSnail(MapleFrame mContext, MonsterWay monsterWay) {
 		this.mContext = mContext;
@@ -139,10 +138,11 @@ public class BlueSnail extends JLabel implements MonsterMove {
 			public void run() {
 				if (left && state == mContext.ALIVE) {
 					while (true) {
-						if(state == mContext.DEAD) {
+						if (state == mContext.DEAD) {
 							break;
 						}
-						if (Math.abs(x - mContext.getCharacter().getX()) < 10 && Math.abs(y - mContext.getCharacter().getY()) < 100) {
+						if (Math.abs(x - mContext.getCharacter().getX()) < 10
+								&& Math.abs(y - mContext.getCharacter().getY()) < 100) {
 							mContext.getCharacter().beattackLeft(damage);
 							try {
 								Thread.sleep(1000);
@@ -180,10 +180,11 @@ public class BlueSnail extends JLabel implements MonsterMove {
 			public void run() {
 				if (right && state == mContext.ALIVE) {
 					while (true) {
-						if(state == mContext.DEAD) {
+						if (state == mContext.DEAD) {
 							break;
 						}
-						if (Math.abs(x - mContext.getCharacter().getX()) < 10 && Math.abs(y - mContext.getCharacter().getY()) < 100) {
+						if (Math.abs(x - mContext.getCharacter().getX()) < 10
+								&& Math.abs(y - mContext.getCharacter().getY()) < 100) {
 							mContext.getCharacter().beattackRight(damage);
 							try {
 								Thread.sleep(1000);
@@ -211,10 +212,11 @@ public class BlueSnail extends JLabel implements MonsterMove {
 		}).start();
 
 	}
+
 	public void damaged(int damage) {
 		hp -= damage;
-		if(hp > 0) {
-			
+		if (hp > 0) {
+
 		} else {
 			state = mContext.DEAD;
 			mContext.setStateBlueSnail(1);
@@ -224,7 +226,7 @@ public class BlueSnail extends JLabel implements MonsterMove {
 
 	@Override
 	public void die() {
-		if(monsterWay == MonsterWay.LEFT) {
+		if (monsterWay == MonsterWay.LEFT) {
 			setIcon(monsterDieL);
 			try {
 				Thread.sleep(150);
@@ -232,7 +234,7 @@ public class BlueSnail extends JLabel implements MonsterMove {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		} else {
 			setIcon(monsterDieR);
 			try {

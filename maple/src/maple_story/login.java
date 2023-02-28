@@ -1,4 +1,5 @@
 package maple_story;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -23,7 +24,7 @@ import javax.swing.JTextField;
 public class Login extends JFrame {
 
 	ImagePanel imagePanel;
-	
+
 	class ImagePanel extends JPanel {
 		private Image image;
 
@@ -77,17 +78,17 @@ public class Login extends JFrame {
 
 				if (id.equals(txtID.getText()) && password.equals(txtPass.getText())) {
 					JOptionPane.showMessageDialog(null, "로그인 성공");
-				
-				MapleFrame frame = new MapleFrame();
-				frame.setVisible(true);
-				dispose();
-			} else {
-				JOptionPane.showMessageDialog(null, "로그인 실패");
-			
+
+					MapleFrame frame = new MapleFrame();
+					frame.setVisible(true);
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "로그인 실패");
+
 //				else {
 //					JOptionPane.showMessageDialog(null, "로그인 실패");
 //				}
-			}
+				}
 			}
 		});
 

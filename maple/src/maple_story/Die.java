@@ -5,22 +5,22 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class Die extends JFrame{
-	
+public class Die extends JFrame {
+
 	JLabel label;
 	JOptionPane death;
-	
+
 	public Die() {
 		initData();
 		setInitLayout();
 	}
-	
+
 	private void initData() {
 		label = new JLabel(new ImageIcon("images/login/you_died.png"));
 		setSize(1000, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+
 	private void setInitLayout() {
 		setVisible(true);
 		setLocationRelativeTo(null);
@@ -30,9 +30,8 @@ public class Die extends JFrame{
 		dispose();
 		new Login();
 
-
 	}
-	
+
 	public static void main(String[] args) {
 		new Die();
 	}

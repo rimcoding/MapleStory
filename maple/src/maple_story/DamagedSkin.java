@@ -44,7 +44,7 @@ public class DamagedSkin extends JLabel {
 	}
 
 	public void up(int damage) {
-		if(damage == 50) {
+		if (damage == 50) {
 			for (int i = 0; i < 50; i++) {
 				setIcon(skin50);
 				y--;
@@ -56,7 +56,7 @@ public class DamagedSkin extends JLabel {
 					e.printStackTrace();
 				}
 			}
-		} else if(damage == 80) {
+		} else if (damage == 80) {
 			for (int i = 0; i < 50; i++) {
 				setIcon(skin80);
 				y--;
@@ -68,7 +68,7 @@ public class DamagedSkin extends JLabel {
 					e.printStackTrace();
 				}
 			}
-		} else if(damage == 100) {
+		} else if (damage == 100) {
 			for (int i = 0; i < 50; i++) {
 				setIcon(skin100);
 				y--;
@@ -83,6 +83,5 @@ public class DamagedSkin extends JLabel {
 		}
 		setIcon(null);
 	}
-	
-	
+
 }

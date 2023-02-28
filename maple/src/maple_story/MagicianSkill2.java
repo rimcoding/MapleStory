@@ -5,12 +5,12 @@ import java.awt.event.KeyEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-public class MagicianSkill2 extends Skill implements MonsterMove {
+public class MagicianSkill2 extends Skill implements EtcMove {
 
 	private ImageIcon[] bashLeft = new ImageIcon[3];
 	private ImageIcon[] bashRight = new ImageIcon[3];
 	private ImageIcon skin;
-	
+
 	public MagicianSkill2(MapleFrame mContext) {
 		super(mContext);
 		initData();
@@ -48,11 +48,6 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 				}
 			}
 		}).start();
-	}
-
-	@Override
-	void used() {
-
 	}
 
 	@Override
@@ -100,7 +95,7 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 				e.printStackTrace();
 			}
 		}
-		if(state == 1) {
+		if (state == 1) {
 			damageSkin();
 			state = 0;
 		}
@@ -152,7 +147,7 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 				e.printStackTrace();
 			}
 		}
-		if(state == 1) {
+		if (state == 1) {
 			damageSkin();
 			state = 0;
 		}
@@ -167,9 +162,9 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 	private void damageSkin() {
 		for (int j = 0; j < 50; j++) {
 			y--;
-			setLocation(x,y);
+			setLocation(x, y);
 			setIcon(skin);
-			setSize(300,200);
+			setSize(300, 200);
 			try {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {
@@ -177,11 +172,6 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 			}
 			setIcon(null);
 		}
-	}
-	
-	@Override
-	public void die() {
-
 	}
 
 }

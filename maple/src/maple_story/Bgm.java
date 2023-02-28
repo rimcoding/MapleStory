@@ -1,4 +1,5 @@
 package maple_story;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -15,7 +16,7 @@ public class Bgm {
 			Clip clip = AudioSystem.getClip();
 			clip.open(music);
 			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(0); 
+			gainControl.setValue(0);
 			clip.start();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class Snail extends JLabel implements MonsterMove {
+public class Snail extends JLabel implements EtcMove {
 	private MapleFrame mContext;
 	// 살아있는 상태, 죽은 상태
 	private int state;
@@ -141,7 +141,8 @@ public class Snail extends JLabel implements MonsterMove {
 						if (state == mContext.DEAD) {
 							break;
 						}
-						if (Math.abs(x - mContext.getCharacter().getX()) < 10 && Math.abs(y - mContext.getCharacter().getY()) < 100) {
+						if (Math.abs(x - mContext.getCharacter().getX()) < 10
+								&& Math.abs(y - mContext.getCharacter().getY()) < 100) {
 							mContext.getCharacter().beattackLeft(damage);
 							try {
 								Thread.sleep(1000);
@@ -182,7 +183,8 @@ public class Snail extends JLabel implements MonsterMove {
 						if (state == mContext.DEAD) {
 							break;
 						}
-						if (Math.abs(x - mContext.getCharacter().getX()) < 10 && Math.abs(y - mContext.getCharacter().getY()) < 100) {
+						if (Math.abs(x - mContext.getCharacter().getX()) < 10
+								&& Math.abs(y - mContext.getCharacter().getY()) < 100) {
 							mContext.getCharacter().beattackRight(damage);
 							try {
 								Thread.sleep(1000);

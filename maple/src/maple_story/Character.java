@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public abstract class Character extends JLabel implements Move {
+public abstract class Character extends JLabel implements CharacterMove {
 
 	MapleFrame mContext;
 	// 상태
@@ -343,7 +343,7 @@ public abstract class Character extends JLabel implements Move {
 				setLocation(x, y);
 				mContext.getHpState().setText("HP:  " + hp + " / " + maxHp);
 				mContext.getHealthBar1().setValue((int) (hp * 100 / maxHp));
-				
+
 				if (hp <= 0) {
 					mContext.dispose();
 					new Die();
@@ -378,9 +378,9 @@ public abstract class Character extends JLabel implements Move {
 				if (hp <= 0) {
 					mContext.dispose();
 					new Die();
-					
+
 				}
-				
+
 			}
 		}).start();
 	}
