@@ -136,9 +136,9 @@ public class Snail extends JLabel implements EtcMove {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (left && state == mContext.ALIVE) {
+				if (left && state == mContext.ALIVE && mContext.getCharacter().state == mContext.ALIVE) {
 					while (true) {
-						if (state == mContext.DEAD) {
+						if (state == mContext.DEAD || mContext.getCharacter().state == mContext.DEAD) {
 							break;
 						}
 						if (Math.abs(x - mContext.getCharacter().getX()) < 10
@@ -178,9 +178,9 @@ public class Snail extends JLabel implements EtcMove {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (right && state == mContext.ALIVE) {
+				if (right && state == mContext.ALIVE && mContext.getCharacter().state == mContext.ALIVE) {
 					while (true) {
-						if (state == mContext.DEAD) {
+						if (state == mContext.DEAD|| mContext.getCharacter().state == mContext.DEAD) {
 							break;
 						}
 						if (Math.abs(x - mContext.getCharacter().getX()) < 10

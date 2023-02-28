@@ -46,6 +46,7 @@ public abstract class Character extends JLabel implements CharacterMove {
 		hpPotion = 999;
 		mpPotion = 999;
 		exp = 0;
+		state = 0;
 		playerLevelUp = new ImageIcon("images/characters/levelup.gif");
 	}
 
@@ -353,6 +354,7 @@ public abstract class Character extends JLabel implements CharacterMove {
 				}
 
 				if (hp <= 0) {
+					state = 1;
 					mContext.dispose();
 					new Die();
 				}
@@ -393,9 +395,9 @@ public abstract class Character extends JLabel implements CharacterMove {
 					e.printStackTrace();
 				}
 				if (hp <= 0) {
+					state = 1;
 					mContext.dispose();
 					new Die();
-
 				}
 
 			}
