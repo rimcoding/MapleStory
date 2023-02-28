@@ -231,11 +231,11 @@ public class MapleFrame extends JFrame {
 		healthBar2.setValue((int) (character.getMp() * 100 / character.getMaxMp()));
 		expBar.setValue(character.getExp());
 		healthBar1.setForeground(Color.RED); // 체력바 색상 설정
-		healthBar1.setBounds(50, 50, 200, 20); // 위치 및 크기 설정
+		healthBar1.setBounds(50, 50, 200, 40); // 위치 및 크기 설정
 		healthBar2.setForeground(Color.BLUE);
-		healthBar2.setBounds(50, 100, 200, 20);
+		healthBar2.setBounds(50, 90, 200, 40);
 		expBar.setForeground(Color.GREEN);
-		expBar.setBounds(50, 150, 200, 20);
+		expBar.setBounds(50, 130, 200, 20);
 		hpPotion = new Item(this);
 		hpPotion.setIcon(hpPotion.getHpPotion());
 		mpPotion = new Item(this);
@@ -264,9 +264,9 @@ public class MapleFrame extends JFrame {
 		hpState.setSize(200, 20);
 		mpState.setSize(200, 20);
 		expState.setSize(200, 20);
-		hpState.setLocation(60, 50);
+		hpState.setLocation(60, 60);
 		mpState.setLocation(60, 100);
-		expState.setLocation(60, 150);
+		expState.setLocation(60, 130);
 		hpPotion.setLocation(1300, 700);
 		mpPotion.setLocation(1300, 750);
 		keys.setLocation(100, 670);

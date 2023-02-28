@@ -30,7 +30,7 @@ public class Keys extends JLabel{
 	}
 
 	private void initData() {
-		keys = new ImageIcon("images/keys/keys.png");
+		keys = new ImageIcon("images/keys/keys2.png");
 	}
 	
 	private void setInitLayout() {

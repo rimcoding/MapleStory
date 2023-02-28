@@ -67,7 +67,7 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 				if (Math.abs((x + 120) - mContext.getRedSnail().getX()) < 100
 						&& mContext.getRedSnail().getState() == mContext.ALIVE) {
 					mContext.getRedSnail().damaged(damage);
-					damageSkin();
+					state = 1;
 					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getRedSnail());
 						break;
@@ -77,7 +77,7 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 				if (Math.abs((x + 120) - mContext.getBlueSnail().getX()) < 100
 						&& mContext.getRedSnail().getState() == mContext.ALIVE) {
 					mContext.getBlueSnail().damaged(damage);
-					damageSkin();
+					state = 1;
 					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getBlueSnail());
 						break;
@@ -87,7 +87,7 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 				if (Math.abs((x + 120) - mContext.getSnail().getX()) < 100
 						&& mContext.getSnail().getState() == mContext.ALIVE) {
 					mContext.getSnail().damaged(damage);
-					damageSkin();
+					state = 1;
 					if (mContext.getSnail().getState() == mContext.DEAD) {
 						remove(mContext.getSnail());
 						break;
@@ -99,6 +99,10 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+		if(state == 1) {
+			damageSkin();
+			state = 0;
 		}
 		clearBash();
 	}
@@ -115,7 +119,7 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 				if (Math.abs(mContext.getRedSnail().getX() - (x + 120)) < 100
 						&& mContext.getRedSnail().getState() == mContext.ALIVE) {
 					mContext.getRedSnail().damaged(damage);
-					damageSkin();
+					state = 1;
 					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getRedSnail());
 						break;
@@ -125,7 +129,7 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 				if (Math.abs(mContext.getBlueSnail().getX() - (x + 120)) < 100
 						&& mContext.getBlueSnail().getState() == mContext.ALIVE) {
 					mContext.getBlueSnail().damaged(damage);
-					damageSkin();
+					state = 1;
 					if (mContext.getRedSnail().getState() == mContext.DEAD) {
 						remove(mContext.getBlueSnail());
 						break;
@@ -135,7 +139,7 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 				if (Math.abs(mContext.getSnail().getX() - (x + 120)) < 100
 						&& mContext.getSnail().getState() == mContext.ALIVE) {
 					mContext.getSnail().damaged(damage);
-					damageSkin();
+					state = 1;
 					if (mContext.getSnail().getState() == mContext.DEAD) {
 						remove(mContext.getSnail());
 						break;
@@ -147,6 +151,10 @@ public class MagicianSkill2 extends Skill implements MonsterMove {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+		if(state == 1) {
+			damageSkin();
+			state = 0;
 		}
 		clearBash();
 	}

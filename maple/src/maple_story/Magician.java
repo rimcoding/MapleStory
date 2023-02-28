@@ -71,6 +71,17 @@ public class Magician extends Character {
 			mContext.getExpState().setText("EXP: " + this.exp + " / " + MAX_EXP + " (Lv: " + lv + ")");
 		}
 	}
+	
+	@Override
+	public void useHpPotion() {
+		super.useHpPotion();
+		
+	}
+	
+	@Override
+	public void useMpPotion() {
+		super.useMpPotion();
+	}
 
 	@Override
 	public void levelUp() {

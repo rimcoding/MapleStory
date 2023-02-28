@@ -143,6 +143,12 @@ public class Snail extends JLabel implements MonsterMove {
 						}
 						if (Math.abs(x - mContext.getCharacter().getX()) < 10 && Math.abs(y - mContext.getCharacter().getY()) < 100) {
 							mContext.getCharacter().beattackLeft(damage);
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 						x -= SPEED;
 						setIcon(monsterL);
@@ -178,6 +184,12 @@ public class Snail extends JLabel implements MonsterMove {
 						}
 						if (Math.abs(x - mContext.getCharacter().getX()) < 10 && Math.abs(y - mContext.getCharacter().getY()) < 100) {
 							mContext.getCharacter().beattackRight(damage);
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 						x += SPEED;
 						setIcon(monsterR);
